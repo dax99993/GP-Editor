@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gp_editor/widgets/rounded_card.dart';
+import 'package:gp_editor/widgets/rounded_card_widget.dart';
 
 class AboutScreen extends StatelessWidget {
   const AboutScreen({super.key});
@@ -22,7 +22,7 @@ class AboutScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        RoundedCard(
+        RoundedCardWidget(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -32,7 +32,7 @@ class AboutScreen extends StatelessWidget {
             ],
           ),
         ),
-        RoundedCard(
+        RoundedCardWidget(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

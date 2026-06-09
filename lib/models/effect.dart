@@ -14,3 +14,5 @@ enum EffectType {
   final int code;
   const EffectType(this.code);
 }
+
+class Effect {}

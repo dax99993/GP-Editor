@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:gp_editor/screens/drums_screen.dart';
 import 'package:gp_editor/screens/edit_screen.dart';
 import 'package:gp_editor/screens/global_settings_screen.dart';
+import 'package:gp_editor/screens/home_screen.dart';
 import 'package:gp_editor/screens/manage_screen.dart';
+import 'package:gp_editor/screens/patches_screen.dart';
+import 'package:gp_editor/widgets/rounded_card_widget.dart';
 
 class GP200Screen extends StatefulWidget {
   const GP200Screen({super.key});
@@ -37,10 +40,32 @@ class _GP200ScreenState extends State<GP200Screen> {
         if (constraints.maxWidth <= 600) {
           return Scaffold(
             appBar: AppBar(
-              toolbarHeight: 35,
               // backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-              backgroundColor: Colors.black,
-              title: Text(_selectedScreen == 0 ? 'Devices' : 'About'),
+              backgroundColor: Colors.white10,
+              leading: IconButton(
+                onPressed: () {
+                  Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (context) => HomeScreen()),
+                    (route) => false,
+                  );
+                },
+                icon: Icon(Icons.home),
+              ),
+              // title: RoundedCard(child: Text('Patch Name')),
+              title: ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => PatchesScreen()),
+                  );
+                },
+                child: Text('Patch Name'),
+              ),
+              actions: [
+                IconButton(onPressed: () {}, icon: Icon(Icons.chevron_left)),
+                IconButton(onPressed: () {}, icon: Icon(Icons.chevron_right)),
+                IconButton(onPressed: () {}, icon: Icon(Icons.save)),
+                IconButton(onPressed: () {}, icon: Icon(Icons.more_vert)),
+              ],
             ),
             body: Container(
               width: double.infinity,

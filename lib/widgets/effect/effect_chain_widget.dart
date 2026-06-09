@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_reorderable_grid_view/widgets/widgets.dart';
 import 'package:gp_editor/models/effect.dart';
 
-class EffectChain extends StatefulWidget {
-  const EffectChain({super.key});
+class EffectChainWidget extends StatefulWidget {
+  const EffectChainWidget({super.key});
 
   @override
-  State<EffectChain> createState() => _EffectChainState();
+  State<EffectChainWidget> createState() => _EffectChainWidgetState();
 }
 
-class _EffectChainState extends State<EffectChain> {
+class _EffectChainWidgetState extends State<EffectChainWidget> {
   final _scrollController = ScrollController();
   final _gridViewKey = GlobalKey();
 

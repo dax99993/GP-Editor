@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class RoundedCard extends StatelessWidget {
-  const RoundedCard({
+class RoundedCardWidget extends StatelessWidget {
+  const RoundedCardWidget({
     super.key,
     required this.child,
     this.horizontalPadding = 8,

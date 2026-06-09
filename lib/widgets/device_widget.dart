@@ -1,20 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:gp_editor/screens/connect_screen.dart';
-import 'package:gp_editor/widgets/rounded_card.dart';
+import 'package:gp_editor/widgets/rounded_card_widget.dart';
 
-class Device extends StatelessWidget {
-  const Device({super.key});
+class DeviceWidget extends StatelessWidget {
+  const DeviceWidget({
+    super.key,
+    required this.imagePath,
+    required this.deviceName,
+    required this.deviceDetails,
+    required this.linkAction,
+  });
+
+  final String imagePath;
+  final String deviceName;
+  final String deviceDetails;
+  final void Function() linkAction;
 
   @override
   Widget build(BuildContext context) {
-    return RoundedCard(
+    return RoundedCardWidget(
       child: Row(
         // mainAxisSize: MainAxisSize.max,
         children: [
           SizedBox(
             width: 150,
             // color: Colors.red,
-            child: Image.asset('images/GP-200-Board.png', fit: BoxFit.fill),
+            child: Image.asset(imagePath, fit: BoxFit.fill),
           ),
           const SizedBox(width: 8),
           Expanded(
@@ -26,13 +36,13 @@ class Device extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'GP-200',
+                      deviceName,
                       style: Theme.of(
                         context,
                       ).textTheme.bodyMedium!.copyWith(fontSize: 12),
                     ),
                     Text(
-                      'Multi-Effects Processor',
+                      deviceDetails,
                       style: Theme.of(
                         context,
                       ).textTheme.bodyMedium!.copyWith(fontSize: 12),
@@ -58,13 +68,7 @@ class Device extends StatelessWidget {
                     ),
                     IconButton(
                       icon: Icon(Icons.link_outlined),
-                      onPressed: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => ConnectScreen(),
-                          ),
-                        );
-                      },
+                      onPressed: linkAction,
                       style: IconButton.styleFrom(
                         backgroundColor: Colors.green,
                         shape: RoundedRectangleBorder(

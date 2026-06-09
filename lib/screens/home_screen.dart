@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:gp_editor/screens/about_screen.dart';
 import 'package:gp_editor/screens/devices_screen.dart';
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _HomeScreenState extends State<HomeScreen> {
   int _selectedScreen = 0;
   Widget? content;
 
@@ -31,7 +31,7 @@ class _MyHomePageState extends State<MyHomePage> {
           return Scaffold(
             appBar: AppBar(
               // backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-              backgroundColor: Colors.black,
+              backgroundColor: Colors.white10,
               title: Text(_selectedScreen == 0 ? 'Devices' : 'About'),
             ),
             body: Container(
@@ -52,12 +52,13 @@ class _MyHomePageState extends State<MyHomePage> {
               items: const <BottomNavigationBarItem>[
                 BottomNavigationBarItem(
                   icon: Icon(Icons.device_hub),
-                  label: 'devices',
+                  label: 'Devices',
                 ),
-                BottomNavigationBarItem(icon: Icon(Icons.help), label: 'about'),
+                BottomNavigationBarItem(icon: Icon(Icons.info), label: 'About'),
               ],
               currentIndex: _selectedScreen,
-              selectedItemColor: Colors.purpleAccent,
+              selectedItemColor: Colors.deepPurpleAccent,
+              backgroundColor: Colors.white10,
               onTap: _onTabSelected,
             ),
           );
@@ -100,7 +101,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                   NavigationRailDestination(
-                    icon: Icon(Icons.help),
+                    icon: Icon(Icons.info),
                     label: Text('About'),
                   ),
                 ],
