@@ -6,19 +6,26 @@ class RoundedCardWidget extends StatelessWidget {
     required this.child,
     this.horizontalPadding = 8,
     this.verticalPadding = 8,
+    this.borderRadius = 8,
+    this.color,
+    this.shadowColor,
   });
 
   final Widget child;
   final double horizontalPadding;
   final double verticalPadding;
+  final double borderRadius;
+  final Color? color;
+  final Color? shadowColor;
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Theme.of(context).colorScheme.primaryContainer,
-      shadowColor: Theme.of(context).colorScheme.secondaryContainer,
+      color: color ?? Theme.of(context).colorScheme.primaryContainer,
+      shadowColor:
+          shadowColor ?? Theme.of(context).colorScheme.secondaryContainer,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadiusGeometry.circular(8),
+        borderRadius: BorderRadiusGeometry.circular(borderRadius),
       ),
       child: Padding(
         padding: EdgeInsets.symmetric(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gp_editor/screens/connect_screen.dart';
-import 'package:gp_editor/screens/gp200_screen.dart';
+import 'package:gp_editor/screens/edit/gp200_screen.dart';
 import 'package:gp_editor/widgets/device_widget.dart';
 
 class DevicesScreen extends StatelessWidget {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gp_editor/widgets/rounded_card_widget.dart';
 
-class InputComboxWidget<T extends Enum> extends StatefulWidget {
+class InputComboxWidget<T> extends StatefulWidget {
   const InputComboxWidget({
     super.key,
     required this.value,
@@ -12,15 +12,14 @@ class InputComboxWidget<T extends Enum> extends StatefulWidget {
 
   final String label;
   final T value;
-  final List<T> entries;
+  final Map<String, T> entries;
   final Function(T value) onChanged;
 
   @override
   State<InputComboxWidget<T>> createState() => _InputComboxWidgetState<T>();
 }
 
-class _InputComboxWidgetState<T extends Enum>
-    extends State<InputComboxWidget<T>> {
+class _InputComboxWidgetState<T> extends State<InputComboxWidget<T>> {
   late T _selectedValue;
 
   @override
@@ -56,18 +55,21 @@ class _InputComboxWidgetState<T extends Enum>
                 child: ListView.builder(
                   itemCount: widget.entries.length,
                   itemBuilder: (ctx, index) {
-                    final isDisabled = _selectedValue == widget.entries[index];
+                    final key = widget.entries.keys.elementAt(index);
+                    final value = widget.entries[key];
+                    final isDisabled = _selectedValue == value;
+
                     return TextButton(
                       onPressed: isDisabled
                           ? null
                           : () {
                               setState(() {
-                                _selectedValue = widget.entries[index];
+                                _selectedValue = value!;
                               });
                               widget.onChanged(_selectedValue);
                               Navigator.of(context).pop();
                             },
-                      child: Text(widget.entries[index].name.toUpperCase()),
+                      child: Text(key.toUpperCase()),
                     );
                   },
                 ),
@@ -81,6 +83,10 @@ class _InputComboxWidgetState<T extends Enum>
 
   @override
   Widget build(BuildContext context) {
+    var key = widget.entries.keys.firstWhere(
+      (k) => widget.entries[k] == _selectedValue,
+    );
+
     return RoundedCardWidget(
       horizontalPadding: 16,
       child: Row(
@@ -95,7 +101,7 @@ class _InputComboxWidgetState<T extends Enum>
           ),
           ElevatedButton(
             onPressed: () => _onPressed(context),
-            child: Text(_selectedValue.name.toUpperCase()),
+            child: Text(key.toUpperCase()),
           ),
         ],
       ),

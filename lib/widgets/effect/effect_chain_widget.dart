@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_reorderable_grid_view/widgets/widgets.dart';
-import 'package:gp_editor/models/effect.dart';
+import 'package:gp_editor/models/effect/effect.dart';
 
 class EffectChainWidget extends StatefulWidget {
   const EffectChainWidget({super.key});
@@ -109,7 +109,6 @@ class _EffectChainWidgetState extends State<EffectChainWidget> {
       _effects.length,
       (index) => Container(
         key: Key(_effects.elementAt(index).name),
-        // color: Colors.black,
         width: 20,
         height: 20,
         child: InkWell(
@@ -138,7 +137,7 @@ class _EffectChainWidgetState extends State<EffectChainWidget> {
       },
       builder: (children) {
         return Container(
-          color: Colors.black,
+          // color: Colors.black,
           width: width,
           height: height,
           child: Stack(

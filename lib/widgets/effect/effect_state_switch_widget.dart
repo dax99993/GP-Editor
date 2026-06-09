@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gp_editor/models/effect.dart';
+import 'package:gp_editor/models/effect/effect.dart';
 import 'package:gp_editor/widgets/rounded_card_widget.dart';
 
 class EffectStateSwitchWidget extends StatefulWidget {

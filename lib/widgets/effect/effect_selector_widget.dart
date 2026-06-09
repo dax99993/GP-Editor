@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gp_editor/screens/effects_screen.dart';
+import 'package:gp_editor/screens/edit/effects_screen.dart';
 import 'package:gp_editor/widgets/rounded_card_widget.dart';
 
 class EffectSelectorWidget extends StatelessWidget {

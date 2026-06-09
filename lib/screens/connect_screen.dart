@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gp_editor/screens/gp200_screen.dart';
+import 'package:gp_editor/screens/edit/gp200_screen.dart';
 import 'package:gp_editor/widgets/rounded_card_widget.dart';
 
 class ConnectScreen extends StatefulWidget {

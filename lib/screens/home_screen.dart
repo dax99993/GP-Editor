@@ -38,9 +38,9 @@ class _HomeScreenState extends State<HomeScreen> {
               width: double.infinity,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [Colors.purple[900]!, Colors.purple[200]!],
+                  colors: [Colors.purple[900]!, Colors.black],
                   begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
+                  end: Alignment.center,
                 ),
               ),
               child: Padding(
