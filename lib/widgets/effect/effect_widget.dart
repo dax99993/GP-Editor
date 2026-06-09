@@ -18,32 +18,38 @@ class EffectWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      borderRadius: BorderRadius.circular(18),
       onTap: onTap,
       child: RoundedCardWidget(
         color: Colors.blue,
         shadowColor: Colors.blueAccent,
         borderRadius: 18,
+        horizontalPadding: 12,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  name,
-                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white,
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    name,
+                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white,
+                    ),
                   ),
-                ),
-                Text(
-                  shortDescription,
-                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                    fontWeight: FontWeight.w500,
-                    color: Colors.white70,
+                  Text(
+                    shortDescription,
+                    maxLines: 1,
+                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                      fontWeight: FontWeight.w500,
+                      color: Colors.white70,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
             IconButton(
               onPressed: onTapInfo,

@@ -21,6 +21,7 @@ class RoundedCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      clipBehavior: Clip.antiAlias, // Optional: clips child overflow visually
       color: color ?? Theme.of(context).colorScheme.primaryContainer,
       shadowColor:
           shadowColor ?? Theme.of(context).colorScheme.secondaryContainer,

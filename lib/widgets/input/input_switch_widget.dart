@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gp_editor/widgets/rounded_card_widget.dart';
 
-class InputToggleWidget extends StatefulWidget {
-  const InputToggleWidget({
+class InputSwitchWidget extends StatefulWidget {
+  const InputSwitchWidget({
     super.key,
     required this.label,
     required this.value,
@@ -14,10 +14,10 @@ class InputToggleWidget extends StatefulWidget {
   final Function(bool value) onChanged;
 
   @override
-  State<InputToggleWidget> createState() => _InputToggleWidgetState();
+  State<InputSwitchWidget> createState() => _InputSwitchWidgetState();
 }
 
-class _InputToggleWidgetState extends State<InputToggleWidget> {
+class _InputSwitchWidgetState extends State<InputSwitchWidget> {
   late bool _switchValue;
 
   @override
