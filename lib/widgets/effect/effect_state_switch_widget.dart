@@ -1,25 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:gp_editor/models/effect/effect.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gp_editor/providers/app_provider.dart';
 import 'package:gp_editor/widgets/rounded_card_widget.dart';
 
-class EffectStateSwitchWidget extends StatefulWidget {
+class EffectStateSwitchWidget extends ConsumerStatefulWidget {
   const EffectStateSwitchWidget({super.key});
 
   @override
-  State<EffectStateSwitchWidget> createState() => _EffectStateSwitch();
+  ConsumerState<EffectStateSwitchWidget> createState() => _EffectStateSwitch();
 }
 
-class _EffectStateSwitch extends State<EffectStateSwitchWidget> {
+class _EffectStateSwitch extends ConsumerState<EffectStateSwitchWidget> {
   var _effectState = false;
 
   @override
   Widget build(BuildContext context) {
+    final app = ref.watch(appProvider);
+
     return RoundedCardWidget(
       horizontalPadding: 0,
       child: Column(
         children: [
           Text(
-            EffectType.cab.name.toUpperCase(),
+            app.selectedEffect.name.toUpperCase(),
             style: Theme.of(
               context,
             ).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.bold),

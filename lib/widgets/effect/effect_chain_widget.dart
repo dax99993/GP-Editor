@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_reorderable_grid_view/widgets/widgets.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gp_editor/models/effect/effect.dart';
+import 'package:gp_editor/providers/app_provider.dart';
 
-class EffectChainWidget extends StatefulWidget {
+class EffectChainWidget extends ConsumerStatefulWidget {
   const EffectChainWidget({super.key});
 
   @override
-  State<EffectChainWidget> createState() => _EffectChainWidgetState();
+  ConsumerState<EffectChainWidget> createState() => _EffectChainWidgetState();
 }
 
-class _EffectChainWidgetState extends State<EffectChainWidget> {
+class _EffectChainWidgetState extends ConsumerState<EffectChainWidget> {
   final _scrollController = ScrollController();
   final _gridViewKey = GlobalKey();
 
@@ -21,7 +23,7 @@ class _EffectChainWidgetState extends State<EffectChainWidget> {
   // State to be moved to provider
   final _inputChainPosition = 10;
   final _outputChainPosition = 11;
-  var _selectedEffect = EffectType.dly;
+  // var _selectedEffect = EffectType.dly;
   final _effectsState = [
     false,
     true,
@@ -105,6 +107,9 @@ class _EffectChainWidgetState extends State<EffectChainWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final app = ref.watch(appProvider);
+    // final selectedEffect =
+
     final generatedChildren = List.generate(
       _effects.length,
       (index) => Container(
@@ -113,21 +118,25 @@ class _EffectChainWidgetState extends State<EffectChainWidget> {
         height: 20,
         child: InkWell(
           onTap: () {
-            setState(() {
-              _selectedEffect = _effects.elementAt(index);
-            });
+            // setState(() {
+            //   _selectedEffect = _effects.elementAt(index);
+            // });
+            ref
+                .read(appProvider.notifier)
+                .setSelectedEffect(_effects.elementAt(index));
           },
           child: Image.asset(
             effectNameToAsset(
               effectType: _effects.elementAt(index),
               state: _effectsState.elementAt(index),
-              selected: _effects.elementAt(index) == _selectedEffect,
+              selected: app.selectedEffect == _effects.elementAt(index),
             ),
             fit: BoxFit.fill,
           ),
         ),
       ),
     );
+
     return ReorderableBuilder(
       scrollController: _scrollController,
       onReorder: (ReorderedListFunction reorderedListFunction) {

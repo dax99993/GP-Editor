@@ -42,6 +42,7 @@ class _EffectsScreenState extends State<EffectsScreen> {
             pinned: true,
             surfaceTintColor: Colors.transparent,
             scrolledUnderElevation: 0.0,
+
             bottom: PreferredSize(
               preferredSize: const Size.fromHeight(50),
               child: Container(

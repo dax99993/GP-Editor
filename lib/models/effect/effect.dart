@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:gp_editor/models/parameters/parameter.dart';
 
 enum EffectType {

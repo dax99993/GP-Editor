@@ -30,3 +30,5 @@ linter:
 analyzer:
   plugins:
     riverpod_lint: <latest version from https://pub.dev/packages/riverpod_lint>
+  errors:
+    invalid_annotation_target: ignore

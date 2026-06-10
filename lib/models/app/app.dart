@@ -1,15 +1,18 @@
 // IDK if i should keep app global state in a class or its handle in a provider?
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:gp_editor/models/effect/effect.dart';
 
-class AppState {
+part 'app.freezed.dart';
+// part 'app.g.dart';
+
+@freezed
+abstract class App with _$App {
   // Connection state (init, syncing, connected, disconnected)
 
   // Device state (device variant)
 
   // Edit state
-  final EffectType currentSelectedEffect;
-
-  AppState({
-    required this.currentSelectedEffect,
-  }); // currently selected effect in effect chain
+  // selectedEffect
+  //
+  const factory App({required EffectType selectedEffect}) = _App;
 }
