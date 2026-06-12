@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gp_editor/screens/settings/ctrl_settings_screen.dart';
 import 'package:gp_editor/screens/settings/exp_settings_screen.dart';
+import 'package:gp_editor/screens/settings/fxloop_settings_screen.dart';
 import 'package:gp_editor/screens/settings/general_settings_screen.dart';
 import 'package:gp_editor/screens/settings/knob_settings_screen.dart';
 import 'package:gp_editor/widgets/patch/patch_settings_selector_widget.dart';
@@ -22,6 +23,14 @@ class PatchSettingsScreen extends StatelessWidget {
           imagePath: 'images/SET_on.png',
           onTap: () {
             _navigateToScreen(context, GeneralSettingsScreen());
+          },
+        ),
+        PatchSettingsSelectorWidget(
+          title: 'FX Loop',
+          infoWidgets: [Text('a')],
+          imagePath: 'images/SET_on.png',
+          onTap: () {
+            _navigateToScreen(context, FxloopSettingsScreen());
           },
         ),
         PatchSettingsSelectorWidget(

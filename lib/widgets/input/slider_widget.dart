@@ -3,63 +3,86 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 class SliderWidget extends StatefulWidget {
-  const SliderWidget({super.key});
+  const SliderWidget({
+    super.key,
+    required this.value,
+    required this.min,
+    required this.max,
+  });
+
+  final double value;
+  final double min;
+  final double max;
 
   @override
   State<SliderWidget> createState() => _SliderWidgetState();
 }
 
 class _SliderWidgetState extends State<SliderWidget> {
+  double _width = 100;
+
   double _normalizedValue = 0.0;
   double _currentValue = 0.0;
-  double _width = 200;
-  double _min = 10;
-  double _max = 50;
+  final double _epsilon =
+      1e-3; // Epsilon to determine if two doubles are considered different
+
+  @override
+  void initState() {
+    _currentValue = clampDouble(widget.value, widget.min, widget.max);
+    _normalizedValue = (_currentValue - widget.min) / (widget.max - widget.min);
+    super.initState();
+  }
 
   void _onDragStart(DragStartDetails details) {
     final dx = details.localPosition.dx;
     final startPosition = dx / _width;
-    print(dx);
-    print(startPosition);
 
     setState(() {
       _normalizedValue = clampDouble(startPosition, 0, 1);
+      _currentValue = lerpDouble(widget.min, widget.max, _normalizedValue)!;
     });
   }
 
   void _onDragUpdate(DragUpdateDetails details) {
-    // print('G = ${details.globalPosition}');
-    // print('L = ${details.localPosition}');
-    // print('D = ${details.delta}');
+    final startPosition = (details.localPosition / _width).dx;
+    final delta = -details.delta.dx / _width;
 
-    final startPosition = details.localPosition / _width;
-    print('SP =  $startPosition');
-    final delta = -details.delta.dx;
+    var newValue = startPosition - delta;
+    print('NV = $newValue');
 
-    final newValue = _currentValue - delta * (_max - _min) / 100;
-    // print(newValue);
+    newValue = clampDouble(newValue, 0, 1.0);
+    if ((startPosition - newValue).abs() < _epsilon) {
+      return;
+    }
+    print('NV tested = $newValue');
 
     setState(() {
-      _normalizedValue -= delta / 100;
-      _normalizedValue = clampDouble(_normalizedValue, 0, 1.0);
+      _normalizedValue = newValue;
+      _currentValue = lerpDouble(widget.min, widget.max, _normalizedValue)!;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      // onHorizontalDragUpdate: _onDragUpdate,
-      onHorizontalDragStart: _onDragStart,
-      child: Container(
-        height: 40,
-        width: _width,
-        child: CustomPaint(
-          painter: SliderPainter(
-            percentage: _normalizedValue,
-            value: _normalizedValue.toStringAsFixed(3),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        _width = constraints.maxWidth;
+
+        return GestureDetector(
+          onHorizontalDragUpdate: _onDragUpdate,
+          onHorizontalDragStart: _onDragStart,
+          child: SizedBox(
+            height: 40,
+            width: _width,
+            child: CustomPaint(
+              painter: SliderPainter(
+                percentage: _normalizedValue,
+                value: _currentValue.toStringAsFixed(3),
+              ),
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

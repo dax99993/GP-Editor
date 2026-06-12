@@ -15,7 +15,7 @@ class InputCustomSliderWidget extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          SliderWidget(),
+          SliderWidget(value: 32, min: 5, max: 50),
           Row(
             children: [
               IconButton(onPressed: _onDecrement, icon: Icon(Icons.remove)),

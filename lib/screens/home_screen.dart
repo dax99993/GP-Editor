@@ -23,31 +23,34 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    content = _screens[_selectedScreen];
+    final appBar = AppBar(
+      // backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+      backgroundColor: Colors.white10,
+      title: Text(_selectedScreen == 0 ? 'Devices' : 'About'),
+    );
+
+    final Widget content = _screens[_selectedScreen];
+
+    final body = Container(
+      width: double.infinity,
+      height: double.infinity,
+      padding: const EdgeInsets.all(8.0),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [Colors.purple[900]!, Colors.black],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+        ),
+      ),
+      child: SingleChildScrollView(child: Column(children: [content])),
+    );
 
     return LayoutBuilder(
       builder: (context, constraints) {
         if (constraints.maxWidth <= 600) {
           return Scaffold(
-            appBar: AppBar(
-              // backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-              backgroundColor: Colors.white10,
-              title: Text(_selectedScreen == 0 ? 'Devices' : 'About'),
-            ),
-            body: Container(
-              width: double.infinity,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [Colors.purple[900]!, Colors.black],
-                  begin: Alignment.topCenter,
-                  end: Alignment.center,
-                ),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: content,
-              ),
-            ),
+            appBar: appBar,
+            body: body,
             bottomNavigationBar: BottomNavigationBar(
               items: const <BottomNavigationBarItem>[
                 BottomNavigationBarItem(
@@ -66,25 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
           return Row(
             children: [
               Expanded(
-                child: Scaffold(
-                  appBar: AppBar(
-                    backgroundColor: Theme.of(
-                      context,
-                    ).colorScheme.primaryContainer,
-                    title: Text(_selectedScreen == 0 ? 'Devices' : 'About'),
-                  ),
-                  body: Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [Colors.purple[900]!, Colors.purple[200]!],
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                      ),
-                    ),
-                    child: content,
-                  ),
-                ),
+                child: Scaffold(appBar: appBar, body: body),
               ),
               NavigationRail(
                 onDestinationSelected: _onTabSelected,
