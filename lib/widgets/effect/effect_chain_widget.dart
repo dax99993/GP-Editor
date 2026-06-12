@@ -107,8 +107,11 @@ class _EffectChainWidgetState extends ConsumerState<EffectChainWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final app = ref.watch(appProvider);
+    // final app = ref.watch(appProvider);
     // final selectedEffect =
+    final EffectType selectedEffect = ref.watch(
+      appProvider.select((app) => app.selectedEffect),
+    );
 
     final generatedChildren = List.generate(
       _effects.length,
@@ -118,9 +121,6 @@ class _EffectChainWidgetState extends ConsumerState<EffectChainWidget> {
         height: 20,
         child: InkWell(
           onTap: () {
-            // setState(() {
-            //   _selectedEffect = _effects.elementAt(index);
-            // });
             ref
                 .read(appProvider.notifier)
                 .setSelectedEffect(_effects.elementAt(index));
@@ -129,7 +129,7 @@ class _EffectChainWidgetState extends ConsumerState<EffectChainWidget> {
             effectNameToAsset(
               effectType: _effects.elementAt(index),
               state: _effectsState.elementAt(index),
-              selected: app.selectedEffect == _effects.elementAt(index),
+              selected: selectedEffect == _effects.elementAt(index),
             ),
             fit: BoxFit.fill,
           ),

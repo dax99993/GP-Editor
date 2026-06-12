@@ -1,32 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gp_editor/data/change_effect.dart';
 import 'package:gp_editor/models/effect/effect.dart';
 import 'package:gp_editor/models/effect/effect_info.dart';
+import 'package:gp_editor/providers/app_provider.dart';
 import 'package:gp_editor/widgets/effect/effect_widget.dart';
 
-class EffectsScreen extends StatefulWidget {
+class EffectsScreen extends ConsumerStatefulWidget {
   EffectsScreen({super.key});
 
-  final _effects = changeEffect[EffectType.amp]!;
+  final _effects = changeEffect;
 
   @override
-  State<EffectsScreen> createState() => _EffectsScreenState();
+  ConsumerState<EffectsScreen> createState() => _EffectsScreenState();
 }
 
-class _EffectsScreenState extends State<EffectsScreen> {
+class _EffectsScreenState extends ConsumerState<EffectsScreen> {
   List<EffectInfo> _filtered_effects = [];
 
   @override
   void initState() {
     super.initState();
+    final selectedEffect = ref.read(
+      appProvider.select((app) => app.selectedEffect),
+    );
     setState(() {
-      _filtered_effects = widget._effects;
+      _filtered_effects = widget._effects[selectedEffect]!;
     });
   }
 
   void filterEffects(String filter) {
+    final selectedEffect = ref.read(
+      appProvider.select((app) => app.selectedEffect),
+    );
+
     setState(() {
-      _filtered_effects = widget._effects
+      _filtered_effects = widget._effects[selectedEffect]!
           .where((e) => e.name.contains(filter))
           .toList();
     });
@@ -59,12 +68,12 @@ class _EffectsScreenState extends State<EffectsScreen> {
           SliverPadding(
             padding: const EdgeInsets.only(bottom: 50.0),
             sliver: SliverList.builder(
-              // itemCount: widget._effects.length,
               itemCount: _filtered_effects.length,
               itemBuilder: (context, index) {
                 final effect = _filtered_effects[index];
                 return EffectWidget(
                   name: effect.name,
+                  // isSelected: ,
                   shortDescription: effect.description,
                   onTap: () {
                     print('Change Effect to ${effect.name}');

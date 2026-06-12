@@ -1,4 +1,7 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:gp_editor/models/parameters/parameter.dart';
+
+part 'effect.freezed.dart';
 
 enum EffectType {
   pre(0),
@@ -17,25 +20,16 @@ enum EffectType {
   const EffectType(this.code);
 }
 
-class Effect {
-  Effect({
-    required this.name,
-    required this.id,
-    // required this.description,
-    required this.type,
-    // required this.state,
-    required this.parameters,
-    this.cabCode,
-  }) : state = false;
-
-  final String name;
-  // final Uint32 id;
-  final int id;
-  // final String description;
-  final EffectType type;
-  final bool state;
-  final int? cabCode;
-
-  // Parameters
-  final List<Parameter> parameters;
+@freezed
+abstract class Effect with _$Effect {
+  const factory Effect({
+    required String name,
+    required int id,
+    required EffectType type,
+    // Parameters
+    required List<Parameter> parameters,
+    // Extra useful fields
+    @Default(false) bool state,
+    int? cabCode,
+  }) = _Effect;
 }

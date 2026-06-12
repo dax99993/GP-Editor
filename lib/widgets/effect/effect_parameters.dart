@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gp_editor/data/default_effects.dart';
 import 'package:gp_editor/models/effect/effect.dart';
 import 'package:gp_editor/models/parameters/combox_parameter.dart';
@@ -6,13 +7,15 @@ import 'package:gp_editor/models/parameters/knob_parameter.dart';
 import 'package:gp_editor/models/parameters/parameter.dart';
 import 'package:gp_editor/models/parameters/slider_parameter.dart';
 import 'package:gp_editor/models/parameters/switch_parameter.dart';
+import 'package:gp_editor/models/patch/patch.dart';
+import 'package:gp_editor/providers/patch_provider.dart';
 import 'package:gp_editor/widgets/input/input_combox_widget.dart';
 import 'package:gp_editor/widgets/input/input_switch_widget.dart';
 import 'package:gp_editor/widgets/input/input_slider_widget.dart';
 
 enum Test { ddd, unit, end2end }
 
-class EffectParameters extends StatelessWidget {
+class EffectParameters extends ConsumerWidget {
   EffectParameters({super.key});
 
   final Effect _effect = defaultEffects[EffectType.dly]!.elementAt(2);
@@ -49,47 +52,15 @@ class EffectParameters extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
-    print(_effect.name);
+  Widget build(BuildContext context, WidgetRef ref) {
+    // final Patch patch = ref.watch(patchProvider.select((p) => ));
+    final effect = ref.watch(patchProvider.notifier).selectedEffect;
+
     return Column(
       children: [
-        for (final parameter in _effect.parameters) mapParameter(parameter),
+        // for (final parameter in _effect.parameters) mapParameter(parameter),
+        for (final parameter in effect.parameters) mapParameter(parameter),
       ],
     );
-
-    // return Column(
-    //   children: [
-    //     InputSliderWidget(
-    //       label: 'Param 1',
-    //       value: 0.7,
-    //       min: 0.0,
-    //       max: 1.0,
-    //       step: 0.1,
-    //       unit: 'ms',
-    //       onChanged: (value) => {},
-    //     ),
-    //     InputSliderWidget(
-    //       label: 'Param 2',
-    //       value: 5,
-    //       min: 0,
-    //       max: 100,
-    //       step: 1,
-    //       onChanged: (value) => {},
-    //     ),
-    //     InputToggleWidget(
-    //       value: false,
-    //       label: 'Param 3',
-    //       onChanged: (value) {},
-    //     ),
-    //     InputComboxWidget(
-    //       label: 'Param 4',
-    //       value: Test.unit,
-    //       entries: Test.values,
-    //       onChanged: (val) {
-    //         print(val);
-    //       },
-    //     ),
-    //   ],
-    // );
   }
 }

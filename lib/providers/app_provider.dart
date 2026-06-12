@@ -1,13 +1,11 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gp_editor/models/app/app.dart';
 import 'package:gp_editor/models/effect/effect.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-final appProvider = NotifierProvider<AppStateNotifier, App>(
-  AppStateNotifier.new,
-);
+part 'app_provider.g.dart';
 
-class AppStateNotifier extends Notifier<App> {
+@riverpod
+class AppNotifier extends _$AppNotifier {
   @override
   build() {
     return App(selectedEffect: EffectType.pre);
@@ -17,17 +15,3 @@ class AppStateNotifier extends Notifier<App> {
     state = state.copyWith(selectedEffect: effectType);
   }
 }
-
-// part 'app_provider.g.dart';
-
-// @riverpod
-// class AppNotifier extends _$AppNotifier {
-//   @override
-//   build() {
-//     return App(selectedEffect: EffectType.pre);
-//   }
-
-//   void setSelectedEffect(EffectType effectType) {
-//     state = state.copyWith(selectedEffect: effectType);
-//   }
-// }
