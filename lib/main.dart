@@ -17,6 +17,7 @@ final darkTheme = ThemeData.from(
 );
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const ProviderScope(child: MyApp()));
 }
 

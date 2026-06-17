@@ -4,6 +4,7 @@ import 'package:gp_editor/screens/connect_screen.dart';
 import 'package:gp_editor/screens/edit/gp200_screen.dart';
 import 'package:gp_editor/screens/settings/ctrl_settings_screen.dart';
 import 'package:gp_editor/screens/settings/exp_settings_screen.dart';
+import 'package:gp_editor/screens/settings/fxloop_settings_screen.dart';
 import 'package:gp_editor/screens/settings/general_settings_screen.dart';
 import 'package:gp_editor/screens/settings/knob_settings_screen.dart';
 import 'package:gp_editor/widgets/device_widget.dart';
@@ -62,7 +63,15 @@ class DevicesScreen extends StatelessWidget {
                 ),
               );
             },
-            child: Text('Go General to settings'),
+            child: Text('Go to General settings'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => FxloopSettingsScreen()),
+              );
+            },
+            child: Text('Go to FxLoop settings'),
           ),
           ElevatedButton(
             onPressed: () {

@@ -23,7 +23,7 @@ class _EditScreenState extends State<EditScreen> {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        if (constraints.maxWidth <= 600) {
+        if (constraints.maxWidth <= 500) {
           return SingleChildScrollView(
             child: Column(
               children: [
@@ -68,9 +68,10 @@ class _EditScreenState extends State<EditScreen> {
           );
         } else {
           return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            padding: const EdgeInsets.all(16.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Column(
                   children: [
