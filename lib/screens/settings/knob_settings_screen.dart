@@ -1,34 +1,62 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gp_editor/models/patch/knob.dart';
+import 'package:gp_editor/providers/patch_provider.dart';
 import 'package:gp_editor/widgets/input/input_combox_widget.dart';
 
 enum KnobOption { knob1, knob2, knob3 }
 
-class KnobSettingsScreen extends StatefulWidget {
+class KnobSettingsScreen extends ConsumerStatefulWidget {
   const KnobSettingsScreen({super.key});
 
   @override
-  State<KnobSettingsScreen> createState() => _KnobSettingsScreenState();
+  ConsumerState<KnobSettingsScreen> createState() => _KnobSettingsScreenState();
 }
 
-class _KnobSettingsScreenState extends State<KnobSettingsScreen> {
+class _KnobSettingsScreenState extends ConsumerState<KnobSettingsScreen> {
   KnobOption _knobView = .knob1;
+  Widget _content = Placeholder();
+
+  @override
+  void initState() {
+    final knob1 = ref.read(patchProvider.select((p) => p.knob1));
+    setState(() {
+      _content = KnobSettings(knobOption: _knobView, knobModule: knob1.module);
+    });
+
+    super.initState();
+  }
+
+  void changeKnobView(Set<KnobOption> p) {
+    final knobOption = p.first;
+    Knob knob;
+    if (knobOption == .knob1) {
+      knob = ref.read(patchProvider.select((p) => p.knob1));
+    } else if (knobOption == .knob2) {
+      knob = ref.read(patchProvider.select((p) => p.knob2));
+    } else {
+      knob = ref.read(patchProvider.select((p) => p.knob3));
+    }
+
+    print(p);
+    print(knob.module);
+    print(knob.effectParamId);
+
+    setState(() {
+      _knobView = knobOption;
+      _content = KnobSettings(knobOption: knobOption, knobModule: knob.module);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    Widget content;
-    if (_knobView == .knob1) {
-      content = KnobSettings(title: 'Knob 1');
-    } else if (_knobView == .knob2) {
-      content = KnobSettings(title: 'Knob 2');
-    } else {
-      content = KnobSettings(title: 'Knob 3');
-    }
+    final _ = ref.watch(patchProvider.select((p) => p.knob1));
+    final _ = ref.watch(patchProvider.select((p) => p.knob2));
+    final _ = ref.watch(patchProvider.select((p) => p.knob3));
 
     return Scaffold(
       appBar: AppBar(title: Text('Knob Settings')),
       body: Column(
-        // mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Center(
@@ -52,12 +80,13 @@ class _KnobSettingsScreenState extends State<KnobSettingsScreen> {
                 ),
               ],
               selected: <KnobOption>{_knobView},
-              onSelectionChanged: (p) => setState(() {
-                _knobView = p.first;
-              }),
+              onSelectionChanged: changeKnobView,
             ),
           ),
-          content,
+          _content,
+          // KnobSettings(knobOption: .knob1, knobModule: KnobModule.amp),
+          // KnobSettings(knobOption: .knob2, knobModule: KnobModule.dst),
+          // KnobSettings(knobOption: .knob3, knobModule: KnobModule.bpm),
         ],
       ),
     );
@@ -65,20 +94,34 @@ class _KnobSettingsScreenState extends State<KnobSettingsScreen> {
 }
 
 class KnobSettings extends StatelessWidget {
-  const KnobSettings({super.key, required this.title});
+  const KnobSettings({
+    super.key,
+    required this.knobOption,
+    required this.knobModule,
+  });
 
-  final String title;
+  final KnobOption knobOption;
+  final KnobModule knobModule;
+  // final String moduleParams;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(title),
+        Text(
+          knobOption.name,
+          style: Theme.of(
+            context,
+          ).textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(height: 8),
         InputComboxWidget(
-          value: KnobModule.amp,
+          value: knobModule,
           entries: KnobModule.values.asNameMap(),
           label: 'Knob Module',
-          onChanged: (val) {},
+          onChanged: (val) {
+            print('Change ${knobOption.name} module to ${val.name}');
+          },
         ),
         InputComboxWidget(
           value: KnobModule.nr,

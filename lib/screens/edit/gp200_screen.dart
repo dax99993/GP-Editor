@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:gp_editor/screens/drums_screen.dart';
 import 'package:gp_editor/screens/edit/edit_screen.dart';
@@ -5,7 +7,6 @@ import 'package:gp_editor/screens/global_settings_screen.dart';
 import 'package:gp_editor/screens/home_screen.dart';
 import 'package:gp_editor/screens/manage_screen.dart';
 import 'package:gp_editor/screens/edit/patches_screen.dart';
-import 'package:gp_editor/widgets/rounded_card_widget.dart';
 
 class GP200Screen extends StatefulWidget {
   const GP200Screen({super.key});
@@ -40,8 +41,6 @@ class _GP200ScreenState extends State<GP200Screen> {
         if (constraints.maxWidth <= 600) {
           return Scaffold(
             appBar: AppBar(
-              // backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-              backgroundColor: Colors.white10,
               leading: IconButton(
                 onPressed: () {
                   Navigator.of(context).pushAndRemoveUntil(
@@ -71,9 +70,10 @@ class _GP200ScreenState extends State<GP200Screen> {
               width: double.infinity,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [Colors.purple[900]!, Colors.black],
-                  begin: Alignment.topCenter,
-                  end: Alignment.center,
+                  colors: [const Color.fromARGB(255, 44, 44, 44), Colors.black],
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
+                  transform: GradientRotation(math.pi * 1.25),
                 ),
               ),
               child: Padding(
@@ -102,10 +102,7 @@ class _GP200ScreenState extends State<GP200Screen> {
               ],
               type: BottomNavigationBarType.fixed,
               currentIndex: _selectedScreen,
-              selectedItemColor: Colors.deepPurpleAccent,
-              unselectedItemColor: Colors.white30,
               showUnselectedLabels: true,
-              backgroundColor: Colors.white10,
               onTap: _onTabSelected,
             ),
           );
@@ -115,7 +112,6 @@ class _GP200ScreenState extends State<GP200Screen> {
               Expanded(
                 child: Scaffold(
                   appBar: AppBar(
-                    // backgroundColor: Theme.of(context).colorScheme.primaryContainer,
                     backgroundColor: Colors.white10,
                     leading: IconButton(
                       onPressed: () {
@@ -126,7 +122,6 @@ class _GP200ScreenState extends State<GP200Screen> {
                       },
                       icon: Icon(Icons.home),
                     ),
-                    // title: RoundedCard(child: Text('Patch Name')),
                     title: ElevatedButton(
                       onPressed: () {
                         Navigator.of(context).push(
@@ -154,9 +149,13 @@ class _GP200ScreenState extends State<GP200Screen> {
                     width: double.infinity,
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
-                        colors: [Colors.purple[900]!, Colors.purple[200]!],
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
+                        colors: [
+                          const Color.fromARGB(255, 44, 44, 44),
+                          Colors.black,
+                        ],
+                        begin: Alignment.centerLeft,
+                        end: Alignment.centerRight,
+                        transform: GradientRotation(math.pi * 1.25),
                       ),
                     ),
                     child: content,
@@ -169,13 +168,7 @@ class _GP200ScreenState extends State<GP200Screen> {
                 destinations: [
                   NavigationRailDestination(
                     icon: Icon(Icons.dialpad),
-                    label: Text(
-                      'Devices',
-                      // style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                      //   fontSize: 8,
-                      //   color: Colors.white,
-                      // ),
-                    ),
+                    label: Text('Devices'),
                   ),
                   NavigationRailDestination(
                     icon: Icon(Icons.circle),

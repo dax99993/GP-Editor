@@ -1,3 +1,4 @@
+import 'package:dashed_border/dashed_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_reorderable_grid_view/widgets/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -144,6 +145,16 @@ class _EffectChainWidgetState extends ConsumerState<EffectChainWidget> {
           _effects = reorderedListFunction(_effects) as List<EffectType>;
         });
       },
+      dragChildBoxDecoration: BoxDecoration(
+        border: DashedBorder(
+          color: Colors.white,
+          width: 2.0,
+          dashLength: 8.0,
+          dashGap: 4.0,
+          style: BorderStyleEx.dashed, // or .dotted or .solid
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+      ),
       builder: (children) {
         return Container(
           // color: Colors.black,

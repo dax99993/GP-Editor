@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:gp_editor/screens/edit/patch_edit_screen.dart';
 import 'package:gp_editor/screens/settings/patch_settings_screen.dart';
 import 'package:gp_editor/widgets/effect/effect_chain_widget.dart';
 import 'package:gp_editor/widgets/effect/effect_parameters.dart';
 import 'package:gp_editor/widgets/effect/effect_selector_widget.dart';
 import 'package:gp_editor/widgets/effect/effect_state_switch_widget.dart';
-import 'package:gp_editor/widgets/rounded_card_widget.dart';
+
+enum PatchScreen { edit, settings }
 
 class EditScreen extends StatefulWidget {
   const EditScreen({super.key});
@@ -15,9 +15,49 @@ class EditScreen extends StatefulWidget {
 }
 
 class _EditScreenState extends State<EditScreen> {
-  var _selectedEditMode = [true, false];
+  PatchScreen _selectedOption = .edit;
 
-  final List<Widget> _screens = [PatchEditScreen(), PatchSettingsScreen()];
+  final patchSettingsScreen = PatchSettingsScreen();
+  final effectChainWidget = EffectChainWidget();
+  final effectStateSwitchWidget = EffectStateSwitchWidget();
+  final effectSelectorhWidget = EffectSelectorWidget();
+  final effectParametersWidget = EffectParameters();
+
+  Widget _buildEffectBar() {
+    return SizedBox(
+      height: 70,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          effectStateSwitchWidget,
+          const SizedBox(width: 4),
+          Expanded(child: effectSelectorhWidget),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildToggleButtons() {
+    return SegmentedButton(
+      showSelectedIcon: false,
+      segments: const <ButtonSegment<PatchScreen>>[
+        ButtonSegment<PatchScreen>(
+          value: .edit,
+          label: Text('Edit'),
+          // icon: Icon(Icons.number),
+        ),
+        ButtonSegment<PatchScreen>(
+          value: .settings,
+          label: Text('Patch Settings'),
+          // icon: Icon(Icons.calendar_view_day),
+        ),
+      ],
+      selected: <PatchScreen>{_selectedOption},
+      onSelectionChanged: (p) => setState(() {
+        _selectedOption = p.first;
+      }),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,119 +67,56 @@ class _EditScreenState extends State<EditScreen> {
           return SingleChildScrollView(
             child: Column(
               children: [
-                ToggleButtons(
-                  fillColor: Colors.blue,
-                  borderRadius: BorderRadius.circular(16),
-                  selectedColor: Colors.white,
-                  selectedBorderColor: Colors.white,
-                  isSelected: _selectedEditMode,
-                  children: [
-                    Text(
-                      'Edit',
-                      style: Theme.of(
-                        context,
-                      ).textTheme.bodySmall!.copyWith(color: Colors.white),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 8.0,
-                        vertical: 0,
-                      ),
-                      child: Text(
-                        'Patch Settings',
-                        style: Theme.of(
-                          context,
-                        ).textTheme.bodySmall!.copyWith(color: Colors.white),
-                      ),
-                    ),
-                  ],
-                  onPressed: (index) {
-                    setState(() {
-                      final toggles = List.filled(2, false, growable: false);
-                      toggles[index] = true;
-                      _selectedEditMode = toggles;
-                    });
-                  },
-                ),
+                _buildToggleButtons(),
                 const SizedBox(height: 16),
-                _screens[_selectedEditMode.indexWhere((s) => s)],
+                // _screens[_selectedOption],
+                if (_selectedOption == .edit) ...[
+                  effectChainWidget,
+                  const SizedBox(height: 16),
+                  _buildEffectBar(),
+                  effectParametersWidget,
+                ] else
+                  patchSettingsScreen,
               ],
             ),
           );
         } else {
           return Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Column(
-                  children: [
-                    ToggleButtons(
-                      fillColor: Colors.blue,
-                      borderRadius: BorderRadius.circular(16),
-                      selectedColor: Colors.white,
-                      selectedBorderColor: Colors.white,
-                      isSelected: _selectedEditMode,
-                      children: [
-                        Text(
-                          'Edit',
-                          style: Theme.of(
-                            context,
-                          ).textTheme.bodySmall!.copyWith(color: Colors.white),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 8.0,
-                            vertical: 0,
-                          ),
-                          child: Text(
-                            'Patch Settings',
-                            style: Theme.of(context).textTheme.bodySmall!
-                                .copyWith(color: Colors.white),
-                          ),
-                        ),
-                      ],
-                      onPressed: (index) {
-                        setState(() {
-                          final toggles = List.filled(
-                            2,
-                            false,
-                            growable: false,
-                          );
-                          toggles[index] = true;
-                          _selectedEditMode = toggles;
-                        });
-                      },
-                    ),
-                    const SizedBox(height: 16),
-                    EffectChainWidget(),
-                  ],
-                ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: 70,
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
+            child: _selectedOption == .edit
+                ? Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Column(
+                        children: [
+                          _buildToggleButtons(),
+                          const SizedBox(height: 16),
+                          effectChainWidget,
+                        ],
+                      ),
+                      const SizedBox(width: 16),
+                      Expanded(
+                        child: SingleChildScrollView(
+                          child: Column(
                             children: [
-                              EffectStateSwitchWidget(),
-                              const SizedBox(width: 4),
-                              Expanded(child: EffectSelectorWidget()),
+                              _buildEffectBar(),
+                              const SizedBox(height: 16),
+                              effectParametersWidget,
                             ],
                           ),
                         ),
-                        const SizedBox(height: 16),
-                        EffectParameters(),
-                      ],
-                    ),
+                      ),
+                    ],
+                  )
+                : Column(
+                    children: [
+                      _buildToggleButtons(),
+                      const SizedBox(height: 16),
+                      Expanded(child: patchSettingsScreen),
+                      // Placeholder(),
+                    ],
                   ),
-                ),
-              ],
-            ),
           );
         }
       },

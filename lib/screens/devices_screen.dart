@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gp_editor/models/patch/fxloop.dart';
 import 'package:gp_editor/screens/connect_screen.dart';
 import 'package:gp_editor/screens/edit/gp200_screen.dart';
 import 'package:gp_editor/screens/settings/ctrl_settings_screen.dart';

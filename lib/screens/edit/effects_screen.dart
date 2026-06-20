@@ -16,17 +16,17 @@ class EffectsScreen extends ConsumerStatefulWidget {
 }
 
 class _EffectsScreenState extends ConsumerState<EffectsScreen> {
-  List<EffectInfo> _filtered_effects = [];
+  List<EffectInfo> _filteredEffects = [];
 
   @override
   void initState() {
-    super.initState();
-    final selectedEffect = ref.read(
+    final EffectType selectedEffect = ref.read(
       appProvider.select((app) => app.selectedEffect),
     );
     setState(() {
-      _filtered_effects = widget._effects[selectedEffect]!;
+      _filteredEffects = widget._effects[selectedEffect]!;
     });
+    super.initState();
   }
 
   void filterEffects(String filter) {
@@ -35,8 +35,8 @@ class _EffectsScreenState extends ConsumerState<EffectsScreen> {
     );
 
     setState(() {
-      _filtered_effects = widget._effects[selectedEffect]!
-          .where((e) => e.name.contains(filter))
+      _filteredEffects = widget._effects[selectedEffect]!
+          .where((e) => e.name.toLowerCase().contains(filter.toLowerCase()))
           .toList();
     });
   }
@@ -51,7 +51,6 @@ class _EffectsScreenState extends ConsumerState<EffectsScreen> {
             pinned: true,
             surfaceTintColor: Colors.transparent,
             scrolledUnderElevation: 0.0,
-
             bottom: PreferredSize(
               preferredSize: const Size.fromHeight(50),
               child: Container(
@@ -68,9 +67,9 @@ class _EffectsScreenState extends ConsumerState<EffectsScreen> {
           SliverPadding(
             padding: const EdgeInsets.only(bottom: 50.0),
             sliver: SliverList.builder(
-              itemCount: _filtered_effects.length,
+              itemCount: _filteredEffects.length,
               itemBuilder: (context, index) {
-                final effect = _filtered_effects[index];
+                final effect = _filteredEffects[index];
                 return EffectWidget(
                   name: effect.name,
                   // isSelected: ,

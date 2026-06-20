@@ -145,7 +145,7 @@ class _InputSliderWidgetState extends State<InputSliderWidget> {
               IconButton(onPressed: _onDecrement, icon: Icon(Icons.remove)),
               Expanded(
                 child: SliderTheme(
-                  data: SliderThemeData(
+                  data: Theme.of(context).sliderTheme.copyWith(
                     trackHeight: 14,
                     thumbShape: RoundSliderThumbShape(enabledThumbRadius: 12),
                   ),

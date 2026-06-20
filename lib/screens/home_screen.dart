@@ -24,8 +24,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final appBar = AppBar(
-      // backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-      backgroundColor: Colors.white10,
       title: Text(_selectedScreen == 0 ? 'Devices' : 'About'),
     );
 
@@ -60,8 +58,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 BottomNavigationBarItem(icon: Icon(Icons.info), label: 'About'),
               ],
               currentIndex: _selectedScreen,
-              selectedItemColor: Colors.deepPurpleAccent,
-              backgroundColor: Colors.white10,
               onTap: _onTabSelected,
             ),
           );
@@ -74,16 +70,12 @@ class _HomeScreenState extends State<HomeScreen> {
               NavigationRail(
                 onDestinationSelected: _onTabSelected,
                 selectedIndex: _selectedScreen,
+                // labelType: NavigationRailLabelType.selected,
+                labelType: NavigationRailLabelType.all,
                 destinations: [
                   NavigationRailDestination(
                     icon: Icon(Icons.device_hub),
-                    label: Text(
-                      'Devices',
-                      // style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                      //   fontSize: 8,
-                      //   color: Colors.white,
-                      // ),
-                    ),
+                    label: Text('Devices'),
                   ),
                   NavigationRailDestination(
                     icon: Icon(Icons.info),

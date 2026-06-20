@@ -1,20 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gp_editor/screens/home_screen.dart';
-
-final theme = ThemeData.from(
-  colorScheme: ColorScheme.fromSeed(
-    brightness: Brightness.light,
-    seedColor: Color.fromARGB(255, 116, 15, 182),
-  ),
-);
-
-final darkTheme = ThemeData.from(
-  colorScheme: ColorScheme.fromSeed(
-    brightness: Brightness.dark,
-    seedColor: Color.fromARGB(255, 116, 15, 182),
-  ),
-);
+import 'package:gp_editor/theme.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,7 +18,7 @@ class MyApp extends StatelessWidget {
       title: 'GP Editor',
       themeMode: ThemeMode.dark,
       darkTheme: darkTheme,
-      theme: theme,
+      theme: lightTheme,
       home: const HomeScreen(),
     );
   }
