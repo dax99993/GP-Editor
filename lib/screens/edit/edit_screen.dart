@@ -69,7 +69,6 @@ class _EditScreenState extends State<EditScreen> {
               children: [
                 _buildToggleButtons(),
                 const SizedBox(height: 16),
-                // _screens[_selectedOption],
                 if (_selectedOption == .edit) ...[
                   effectChainWidget,
                   const SizedBox(height: 16),
@@ -114,7 +113,6 @@ class _EditScreenState extends State<EditScreen> {
                       _buildToggleButtons(),
                       const SizedBox(height: 16),
                       Expanded(child: patchSettingsScreen),
-                      // Placeholder(),
                     ],
                   ),
           );

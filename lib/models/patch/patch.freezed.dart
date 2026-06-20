@@ -277,7 +277,7 @@ as int,
 /// @nodoc
 mixin _$Patch {
 
- String get name; int get index; String get author; String get note; PatchSettings get settings; FXLoop get fxLoop; Exp get exp1a; Exp get exp1b; Exp get exp2; Knob get knob1; Knob get knob2; Knob get knob3; Ctrl get ctrl1; Ctrl get ctrl2; Ctrl get ctrl3; Ctrl get ctrl4; Ctrl get ctrl5; Ctrl get ctrl6; Ctrl get ctrl7; Ctrl get ctrl8; List<int> get effectsChainOrder; List<Effect> get effects;
+ String get name; int get index; String get author; String get note; PatchSettings get settings; FXLoop get fxLoop; Exp get exp1a; Exp get exp1b; Exp get exp2; Knob get knob1; Knob get knob2; Knob get knob3; Ctrl get ctrl1; Ctrl get ctrl2; Ctrl get ctrl3; Ctrl get ctrl4; Ctrl get ctrl5; Ctrl get ctrl6; Ctrl get ctrl7; Ctrl get ctrl8; List<EffectType> get effectsChainOrder; List<Effect> get effects;
 /// Create a copy of Patch
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -308,7 +308,7 @@ abstract mixin class $PatchCopyWith<$Res>  {
   factory $PatchCopyWith(Patch value, $Res Function(Patch) _then) = _$PatchCopyWithImpl;
 @useResult
 $Res call({
- String name, int index, String author, String note, PatchSettings settings, FXLoop fxLoop, Exp exp1a, Exp exp1b, Exp exp2, Knob knob1, Knob knob2, Knob knob3, Ctrl ctrl1, Ctrl ctrl2, Ctrl ctrl3, Ctrl ctrl4, Ctrl ctrl5, Ctrl ctrl6, Ctrl ctrl7, Ctrl ctrl8, List<int> effectsChainOrder, List<Effect> effects
+ String name, int index, String author, String note, PatchSettings settings, FXLoop fxLoop, Exp exp1a, Exp exp1b, Exp exp2, Knob knob1, Knob knob2, Knob knob3, Ctrl ctrl1, Ctrl ctrl2, Ctrl ctrl3, Ctrl ctrl4, Ctrl ctrl5, Ctrl ctrl6, Ctrl ctrl7, Ctrl ctrl8, List<EffectType> effectsChainOrder, List<Effect> effects
 });
 
 
@@ -348,7 +348,7 @@ as Ctrl,ctrl6: null == ctrl6 ? _self.ctrl6 : ctrl6 // ignore: cast_nullable_to_n
 as Ctrl,ctrl7: null == ctrl7 ? _self.ctrl7 : ctrl7 // ignore: cast_nullable_to_non_nullable
 as Ctrl,ctrl8: null == ctrl8 ? _self.ctrl8 : ctrl8 // ignore: cast_nullable_to_non_nullable
 as Ctrl,effectsChainOrder: null == effectsChainOrder ? _self.effectsChainOrder : effectsChainOrder // ignore: cast_nullable_to_non_nullable
-as List<int>,effects: null == effects ? _self.effects : effects // ignore: cast_nullable_to_non_nullable
+as List<EffectType>,effects: null == effects ? _self.effects : effects // ignore: cast_nullable_to_non_nullable
 as List<Effect>,
   ));
 }
@@ -443,7 +443,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name,  int index,  String author,  String note,  PatchSettings settings,  FXLoop fxLoop,  Exp exp1a,  Exp exp1b,  Exp exp2,  Knob knob1,  Knob knob2,  Knob knob3,  Ctrl ctrl1,  Ctrl ctrl2,  Ctrl ctrl3,  Ctrl ctrl4,  Ctrl ctrl5,  Ctrl ctrl6,  Ctrl ctrl7,  Ctrl ctrl8,  List<int> effectsChainOrder,  List<Effect> effects)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name,  int index,  String author,  String note,  PatchSettings settings,  FXLoop fxLoop,  Exp exp1a,  Exp exp1b,  Exp exp2,  Knob knob1,  Knob knob2,  Knob knob3,  Ctrl ctrl1,  Ctrl ctrl2,  Ctrl ctrl3,  Ctrl ctrl4,  Ctrl ctrl5,  Ctrl ctrl6,  Ctrl ctrl7,  Ctrl ctrl8,  List<EffectType> effectsChainOrder,  List<Effect> effects)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Patch() when $default != null:
 return $default(_that.name,_that.index,_that.author,_that.note,_that.settings,_that.fxLoop,_that.exp1a,_that.exp1b,_that.exp2,_that.knob1,_that.knob2,_that.knob3,_that.ctrl1,_that.ctrl2,_that.ctrl3,_that.ctrl4,_that.ctrl5,_that.ctrl6,_that.ctrl7,_that.ctrl8,_that.effectsChainOrder,_that.effects);case _:
@@ -464,7 +464,7 @@ return $default(_that.name,_that.index,_that.author,_that.note,_that.settings,_t
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  int index,  String author,  String note,  PatchSettings settings,  FXLoop fxLoop,  Exp exp1a,  Exp exp1b,  Exp exp2,  Knob knob1,  Knob knob2,  Knob knob3,  Ctrl ctrl1,  Ctrl ctrl2,  Ctrl ctrl3,  Ctrl ctrl4,  Ctrl ctrl5,  Ctrl ctrl6,  Ctrl ctrl7,  Ctrl ctrl8,  List<int> effectsChainOrder,  List<Effect> effects)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  int index,  String author,  String note,  PatchSettings settings,  FXLoop fxLoop,  Exp exp1a,  Exp exp1b,  Exp exp2,  Knob knob1,  Knob knob2,  Knob knob3,  Ctrl ctrl1,  Ctrl ctrl2,  Ctrl ctrl3,  Ctrl ctrl4,  Ctrl ctrl5,  Ctrl ctrl6,  Ctrl ctrl7,  Ctrl ctrl8,  List<EffectType> effectsChainOrder,  List<Effect> effects)  $default,) {final _that = this;
 switch (_that) {
 case _Patch():
 return $default(_that.name,_that.index,_that.author,_that.note,_that.settings,_that.fxLoop,_that.exp1a,_that.exp1b,_that.exp2,_that.knob1,_that.knob2,_that.knob3,_that.ctrl1,_that.ctrl2,_that.ctrl3,_that.ctrl4,_that.ctrl5,_that.ctrl6,_that.ctrl7,_that.ctrl8,_that.effectsChainOrder,_that.effects);case _:
@@ -484,7 +484,7 @@ return $default(_that.name,_that.index,_that.author,_that.note,_that.settings,_t
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name,  int index,  String author,  String note,  PatchSettings settings,  FXLoop fxLoop,  Exp exp1a,  Exp exp1b,  Exp exp2,  Knob knob1,  Knob knob2,  Knob knob3,  Ctrl ctrl1,  Ctrl ctrl2,  Ctrl ctrl3,  Ctrl ctrl4,  Ctrl ctrl5,  Ctrl ctrl6,  Ctrl ctrl7,  Ctrl ctrl8,  List<int> effectsChainOrder,  List<Effect> effects)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name,  int index,  String author,  String note,  PatchSettings settings,  FXLoop fxLoop,  Exp exp1a,  Exp exp1b,  Exp exp2,  Knob knob1,  Knob knob2,  Knob knob3,  Ctrl ctrl1,  Ctrl ctrl2,  Ctrl ctrl3,  Ctrl ctrl4,  Ctrl ctrl5,  Ctrl ctrl6,  Ctrl ctrl7,  Ctrl ctrl8,  List<EffectType> effectsChainOrder,  List<Effect> effects)?  $default,) {final _that = this;
 switch (_that) {
 case _Patch() when $default != null:
 return $default(_that.name,_that.index,_that.author,_that.note,_that.settings,_that.fxLoop,_that.exp1a,_that.exp1b,_that.exp2,_that.knob1,_that.knob2,_that.knob3,_that.ctrl1,_that.ctrl2,_that.ctrl3,_that.ctrl4,_that.ctrl5,_that.ctrl6,_that.ctrl7,_that.ctrl8,_that.effectsChainOrder,_that.effects);case _:
@@ -499,7 +499,7 @@ return $default(_that.name,_that.index,_that.author,_that.note,_that.settings,_t
 
 
 class _Patch implements Patch {
-  const _Patch({required this.name, required this.index, required this.author, required this.note, required this.settings, required this.fxLoop, required this.exp1a, required this.exp1b, required this.exp2, required this.knob1, required this.knob2, required this.knob3, required this.ctrl1, required this.ctrl2, required this.ctrl3, required this.ctrl4, required this.ctrl5, required this.ctrl6, required this.ctrl7, required this.ctrl8, required final  List<int> effectsChainOrder, required final  List<Effect> effects}): _effectsChainOrder = effectsChainOrder,_effects = effects;
+  const _Patch({required this.name, required this.index, required this.author, required this.note, required this.settings, required this.fxLoop, required this.exp1a, required this.exp1b, required this.exp2, required this.knob1, required this.knob2, required this.knob3, required this.ctrl1, required this.ctrl2, required this.ctrl3, required this.ctrl4, required this.ctrl5, required this.ctrl6, required this.ctrl7, required this.ctrl8, required final  List<EffectType> effectsChainOrder, required final  List<Effect> effects}): _effectsChainOrder = effectsChainOrder,_effects = effects;
   
 
 @override final  String name;
@@ -522,8 +522,8 @@ class _Patch implements Patch {
 @override final  Ctrl ctrl6;
 @override final  Ctrl ctrl7;
 @override final  Ctrl ctrl8;
- final  List<int> _effectsChainOrder;
-@override List<int> get effectsChainOrder {
+ final  List<EffectType> _effectsChainOrder;
+@override List<EffectType> get effectsChainOrder {
   if (_effectsChainOrder is EqualUnmodifiableListView) return _effectsChainOrder;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_effectsChainOrder);
@@ -567,7 +567,7 @@ abstract mixin class _$PatchCopyWith<$Res> implements $PatchCopyWith<$Res> {
   factory _$PatchCopyWith(_Patch value, $Res Function(_Patch) _then) = __$PatchCopyWithImpl;
 @override @useResult
 $Res call({
- String name, int index, String author, String note, PatchSettings settings, FXLoop fxLoop, Exp exp1a, Exp exp1b, Exp exp2, Knob knob1, Knob knob2, Knob knob3, Ctrl ctrl1, Ctrl ctrl2, Ctrl ctrl3, Ctrl ctrl4, Ctrl ctrl5, Ctrl ctrl6, Ctrl ctrl7, Ctrl ctrl8, List<int> effectsChainOrder, List<Effect> effects
+ String name, int index, String author, String note, PatchSettings settings, FXLoop fxLoop, Exp exp1a, Exp exp1b, Exp exp2, Knob knob1, Knob knob2, Knob knob3, Ctrl ctrl1, Ctrl ctrl2, Ctrl ctrl3, Ctrl ctrl4, Ctrl ctrl5, Ctrl ctrl6, Ctrl ctrl7, Ctrl ctrl8, List<EffectType> effectsChainOrder, List<Effect> effects
 });
 
 
@@ -607,7 +607,7 @@ as Ctrl,ctrl6: null == ctrl6 ? _self.ctrl6 : ctrl6 // ignore: cast_nullable_to_n
 as Ctrl,ctrl7: null == ctrl7 ? _self.ctrl7 : ctrl7 // ignore: cast_nullable_to_non_nullable
 as Ctrl,ctrl8: null == ctrl8 ? _self.ctrl8 : ctrl8 // ignore: cast_nullable_to_non_nullable
 as Ctrl,effectsChainOrder: null == effectsChainOrder ? _self._effectsChainOrder : effectsChainOrder // ignore: cast_nullable_to_non_nullable
-as List<int>,effects: null == effects ? _self._effects : effects // ignore: cast_nullable_to_non_nullable
+as List<EffectType>,effects: null == effects ? _self._effects : effects // ignore: cast_nullable_to_non_nullable
 as List<Effect>,
   ));
 }

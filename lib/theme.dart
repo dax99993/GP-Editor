@@ -1,81 +1,129 @@
 import 'package:flutter/material.dart';
 
-final lightTheme = ThemeData(
-  useMaterial3: true,
-  brightness: Brightness.light,
-  colorScheme: ColorScheme.light(
-    primary: Colors.black,
-    onPrimary: Colors.white,
-    secondary: Colors.white,
-    onSecondary: Colors.black,
-    surface: Colors.white,
-    onSurface: Colors.black,
-  ),
-);
+class ThemeColors {
+  // COLOR SCHEME
+  Color get primary => Colors.white; // Main accent/buttons
+  Color get onPrimary => Colors.black87; // themeMode: ThemeMode.dark,
+
+  Color get secondary => Colors.blueAccent; // Secondary accents/icons
+  Color get onSecondary => Colors.white;
+
+  Color get surface => Colors.black87; // Backgrounds
+  Color get onSurface => Colors.white; // Text on backgrounds
+
+  Color get error => Colors.red;
+  Color get onError => Colors.white;
+
+  // APP BAR
+  // Color get appBarBackground2 => Colors.white10;
+  Color get appBarBackground => Colors.grey.shade900;
+
+  // NAV BAR
+  // Color get navBarBackground2 => Colors.white10;
+  Color get navBarBackground => Colors.grey.shade900;
+  Color get navBarSelectedItem => Colors.white;
+  // Color get navBarUnselectedItem2 => Colors.white30;
+  Color get navBarUnselectedItem => Colors.grey.shade700;
+
+  // CARD
+  Color get cardColor => Colors.grey[850]!;
+  Color get cardShadowColor => Colors.grey[900]!;
+
+  // SLIDER
+  // Color get sliderActiveTrackColor => Colors.white70;
+  Color get sliderActiveTrackColor => Colors.grey.shade400;
+
+  // SWITCH
+  Color get switchThumbSelected => Colors.grey.shade500;
+  Color get switchThumbUnselected => primary;
+  Color get switchTrackSelected => primary;
+  Color get switchTrackUnselected => Colors.grey.shade500;
+  Color get switchOverlaySelected => Colors.grey.withAlpha((0.4 * 255).toInt());
+  Color get switchOverlayUnselected => primary.withAlpha((0.4 * 255).toInt());
+
+  // BUTTON
+  // ELEVATED BUTTON
+  // SEGMENTED BUTTONS
+  Color get segmentedButtonBackgroundSelected => primary;
+  Color get segmentedButtonBackgroundHovered =>
+      Colors.grey.shade500; // Background when hovered
+  Color get segmentedButtonBackgroundUnselected =>
+      Colors.transparent; //TODO: should i choose a fixed a color?
+  Color get segmentedButtonForegroundSelected => onPrimary;
+  Color get segmentedButtonForegroundHovered => onPrimary;
+  Color get segmentedButtonForegroundUnselected => primary;
+}
+
+final themeColors = ThemeColors();
 
 final darkTheme = ThemeData(
   useMaterial3: true,
   brightness: Brightness.dark,
   colorScheme: ColorScheme.dark(
-    primary: Colors.white, // Main accent/buttons
-    onPrimary: Colors.black87, // themeMode: ThemeMode.dark,
-
-    secondary: Colors.blueAccent, // Secondary accents/icons
-    onSecondary: Colors.white,
-
-    surface: Colors.black87, // Backgrounds
-    onSurface: Colors.white, // Text on backgrounds
-
-    error: Colors.red,
-    onError: Colors.white,
+    primary: themeColors.primary,
+    onPrimary: themeColors.onPrimary,
+    secondary: themeColors.secondary,
+    onSecondary: themeColors.onSecondary,
+    surface: themeColors.surface,
+    onSurface: themeColors.onSurface,
+    error: themeColors.error,
+    onError: themeColors.onError,
   ),
-  appBarTheme: AppBarThemeData().copyWith(backgroundColor: Colors.white10),
+  appBarTheme: AppBarThemeData().copyWith(
+    backgroundColor: themeColors.appBarBackground,
+  ),
   // bottomAppBarTheme: BottomAppBarThemeData().copyWith(color: Colors.pink),
   bottomNavigationBarTheme: BottomNavigationBarThemeData().copyWith(
-    backgroundColor: Colors.white10,
-    selectedItemColor: Colors.white,
-    unselectedItemColor: Colors.white30,
+    backgroundColor: themeColors.navBarBackground,
+    selectedItemColor: themeColors.navBarSelectedItem,
+    unselectedItemColor: themeColors.navBarUnselectedItem,
   ),
   navigationRailTheme: NavigationRailThemeData().copyWith(
-    backgroundColor: Colors.white10,
+    backgroundColor: themeColors.navBarBackground,
     indicatorColor: Colors.transparent,
-    selectedIconTheme: IconThemeData().copyWith(color: Colors.white),
-    unselectedIconTheme: IconThemeData().copyWith(color: Colors.white30),
-    selectedLabelTextStyle: TextStyle(color: Colors.white),
-    unselectedLabelTextStyle: TextStyle(color: Colors.white30),
+    selectedIconTheme: IconThemeData().copyWith(
+      color: themeColors.navBarSelectedItem,
+    ),
+    unselectedIconTheme: IconThemeData().copyWith(
+      color: themeColors.navBarUnselectedItem,
+    ),
+    selectedLabelTextStyle: TextStyle(color: themeColors.navBarSelectedItem),
+    unselectedLabelTextStyle: TextStyle(
+      color: themeColors.navBarUnselectedItem,
+    ),
     labelType: NavigationRailLabelType.all,
   ),
   cardTheme: CardThemeData().copyWith(
     clipBehavior: Clip.antiAlias, // Optional: clips child overflow visually
-    color: Colors.grey[850],
-    shadowColor: Colors.grey[900],
+    color: themeColors.cardColor,
+    shadowColor: themeColors.cardShadowColor,
   ),
   sliderTheme: SliderThemeData().copyWith(
-    activeTrackColor: Colors.white70,
-    trackHeight: 14,
+    activeTrackColor: themeColors.sliderActiveTrackColor,
     thumbShape: RoundSliderThumbShape(enabledThumbRadius: 12),
+    trackHeight: 14,
   ),
   switchTheme: SwitchThemeData().copyWith(
     // Color of the thumb (the circle that moves)
     thumbColor: WidgetStateColor.resolveWith((states) {
       if (states.contains(WidgetState.selected)) {
-        return Colors.grey.shade500; // Color when switch is ON
+        return themeColors.switchThumbSelected; // Color when switch is ON
       }
-      return Colors.white; // Color when switch is OFF
+      return themeColors.switchThumbUnselected; // Color when switch is OFF
     }),
     // Color of the track (the background rail)
     trackColor: WidgetStateColor.resolveWith((states) {
       if (states.contains(WidgetState.selected)) {
-        return Colors.white;
+        return themeColors.switchTrackSelected;
       }
-      return Colors.grey.shade500;
+      return themeColors.switchTrackUnselected;
     }),
     // Color of the ripple effect when pressed
     overlayColor: WidgetStateColor.resolveWith((states) {
       if (states.contains(WidgetState.selected)) {
-        return Colors.grey.withAlpha((0.4 * 255).toInt());
+        return themeColors.switchOverlaySelected;
       }
-      return Colors.white.withAlpha((0.4 * 255).toInt());
+      return themeColors.switchOverlayUnselected;
     }),
   ),
   buttonTheme: ButtonThemeData().copyWith(buttonColor: Colors.grey),
@@ -92,24 +140,22 @@ final darkTheme = ThemeData(
         Set<WidgetState> states,
       ) {
         if (states.contains(WidgetState.selected)) {
-          return Colors.white; // Background when selected
+          return themeColors.segmentedButtonBackgroundSelected;
         } else if (states.contains(WidgetState.hovered)) {
-          // return Colors.grey.shade500; // Background when hovered
-          return Colors.white.withAlpha(100); // Background when hovered
+          return themeColors.segmentedButtonBackgroundHovered;
         }
-        // return Colors.white; // Default background
-        return Colors.transparent;
+        return themeColors.segmentedButtonBackgroundUnselected;
       }),
       // Customize text/icon color based on state
       foregroundColor: WidgetStateProperty.resolveWith<Color?>((
         Set<WidgetState> states,
       ) {
         if (states.contains(WidgetState.selected)) {
-          return Colors.black;
+          return themeColors.segmentedButtonForegroundSelected;
         } else if (states.contains(WidgetState.hovered)) {
-          return Colors.white;
+          return themeColors.segmentedButtonForegroundHovered;
         } else {
-          return Colors.white;
+          return themeColors.segmentedButtonForegroundUnselected;
         }
       }),
     ),

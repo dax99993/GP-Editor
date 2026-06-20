@@ -11,8 +11,6 @@ part 'patch_provider.g.dart';
 class PatchNotifier extends _$PatchNotifier {
   @override
   Patch build() {
-    final _ = ref.watch(appProvider.select((a) => a.selectedEffect));
-    // return App(selectedEffect: EffectType.pre);
     return testPatch.copyWith(name: "My Patch");
   }
 
@@ -21,17 +19,9 @@ class PatchNotifier extends _$PatchNotifier {
     return state.effects.firstWhere((e) => e.type == selectedEffectType);
   }
 
-  // void setPatch(Patch patch) {
-  //   state = state.copyWith();
-  // }
-}
-
-@riverpod
-class EffectNotifier extends _$EffectNotifier {
-  @override
-  Patch build() {
-    final _ = ref.watch(appProvider.select((a) => a.selectedEffect));
-    // return App(selectedEffect: EffectType.pre);
-    return testPatch.copyWith(name: "My Patch");
+  void reorderEffectChain(List<EffectType> order) {
+    print('Changing effects chain order $order');
+    // TODO: safe check no repetition of Effecttype and length of list
+    state = state.copyWith(effectsChainOrder: order);
   }
 }

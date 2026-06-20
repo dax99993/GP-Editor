@@ -4,6 +4,8 @@ import 'package:gp_editor/data/change_effect.dart';
 import 'package:gp_editor/models/effect/effect.dart';
 import 'package:gp_editor/models/effect/effect_info.dart';
 import 'package:gp_editor/providers/app_provider.dart';
+import 'package:gp_editor/providers/patch_provider.dart';
+import 'package:gp_editor/theme.dart';
 import 'package:gp_editor/widgets/effect/effect_widget.dart';
 
 class EffectsScreen extends ConsumerStatefulWidget {
@@ -43,13 +45,21 @@ class _EffectsScreenState extends ConsumerState<EffectsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final selectedEffect = ref.read(
+      appProvider.select((app) => app.selectedEffect),
+    );
+    final e = ref
+        .read(patchProvider)
+        .effects
+        .firstWhere((e) => e.type == selectedEffect);
+
     return Scaffold(
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
             title: const Text('Select Effect'),
             pinned: true,
-            surfaceTintColor: Colors.transparent,
+            backgroundColor: themeColors.appBarBackground,
             scrolledUnderElevation: 0.0,
             bottom: PreferredSize(
               preferredSize: const Size.fromHeight(50),
@@ -65,14 +75,15 @@ class _EffectsScreenState extends ConsumerState<EffectsScreen> {
             ),
           ),
           SliverPadding(
-            padding: const EdgeInsets.only(bottom: 50.0),
+            padding: const EdgeInsetsGeometry.fromLTRB(16, 0, 16, 25),
             sliver: SliverList.builder(
               itemCount: _filteredEffects.length,
               itemBuilder: (context, index) {
                 final effect = _filteredEffects[index];
                 return EffectWidget(
                   name: effect.name,
-                  // isSelected: ,
+                  // isSelected: index == 1,
+                  isSelected: effect.id == e.id,
                   shortDescription: effect.description,
                   onTap: () {
                     print('Change Effect to ${effect.name}');

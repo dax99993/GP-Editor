@@ -53,7 +53,7 @@ abstract class Patch with _$Patch {
     required Ctrl ctrl7,
     required Ctrl ctrl8,
     // effects
-    required List<int> effectsChainOrder,
+    required List<EffectType> effectsChainOrder,
     required List<Effect> effects,
   }) = _Patch;
 }

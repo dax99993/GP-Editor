@@ -4,57 +4,21 @@ import 'package:flutter_reorderable_grid_view/widgets/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gp_editor/models/effect/effect.dart';
 import 'package:gp_editor/providers/app_provider.dart';
+import 'package:gp_editor/providers/patch_provider.dart';
+import 'package:gp_editor/widgets/effect/effect_image_widget.dart';
 
-class EffectChainWidget extends ConsumerStatefulWidget {
-  const EffectChainWidget({super.key});
+class EffectChainWidget extends ConsumerWidget {
+  EffectChainWidget({super.key});
 
-  @override
-  ConsumerState<EffectChainWidget> createState() => _EffectChainWidgetState();
-}
-
-class _EffectChainWidgetState extends ConsumerState<EffectChainWidget> {
-  final _scrollController = ScrollController();
   final _gridViewKey = GlobalKey();
+  final _scrollController = ScrollController();
 
   final double width = 250;
   final double height = 250 * 0.75;
 
-  List<EffectType> _effects = EffectType.values;
-
-  // State to be moved to provider
-  final _inputChainPosition = 10;
-  final _outputChainPosition = 11;
-  // var _selectedEffect = EffectType.dly;
-  final _effectsState = [
-    false,
-    true,
-    true,
-    true,
-    false,
-    false,
-    true,
-    true,
-    false,
-    false,
-    true,
-  ];
-
-  String effectNameToAsset({
-    required EffectType effectType,
-    required bool state,
-    required bool selected,
-  }) {
-    var assetPath =
-        'images/${effectType.name.toUpperCase()}_${state ? 'on' : 'off'}';
-
-    if (selected) {
-      assetPath += '_selected.png';
-    } else {
-      assetPath += '.png';
-    }
-
-    return assetPath;
-  }
+  final double _effectWidth = 20;
+  final double _effectHeight = 20;
+  final double _arrowWidth = 10;
 
   double calculateInputChainArrowTopPosition(int position) {
     final row = (position / 4).toInt();
@@ -107,32 +71,45 @@ class _EffectChainWidgetState extends ConsumerState<EffectChainWidget> {
       calculateInputChainArrowLeftPosition(position);
 
   @override
-  Widget build(BuildContext context) {
-    // final app = ref.watch(appProvider);
-    // final selectedEffect =
+  Widget build(BuildContext context, WidgetRef ref) {
     final EffectType selectedEffect = ref.watch(
       appProvider.select((app) => app.selectedEffect),
     );
 
+    final effectsChain = ref.watch(
+      patchProvider.select((p) => p.effectsChainOrder),
+    );
+
+    final effectsState = ref
+        .read(patchProvider.select((p) => p.effects))
+        .map((e) => e.state)
+        .toList();
+
+    final inputChainPosition = ref.watch(
+      patchProvider.select((p) => p.fxLoop.sendPosition),
+    );
+
+    final outputChainPosition = ref.watch(
+      patchProvider.select((p) => p.fxLoop.returnPosition),
+    );
+
     final generatedChildren = List.generate(
-      _effects.length,
-      (index) => Container(
-        key: Key(_effects.elementAt(index).name),
-        width: 20,
-        height: 20,
+      effectsChain.length,
+      (index) => SizedBox(
+        key: Key(effectsChain.elementAt(index).name),
+        width: _effectWidth,
+        height: _effectHeight,
         child: InkWell(
           onTap: () {
+            print('Selecting effect ${effectsChain.elementAt(index)}');
             ref
                 .read(appProvider.notifier)
-                .setSelectedEffect(_effects.elementAt(index));
+                .setSelectedEffect(effectsChain.elementAt(index));
           },
-          child: Image.asset(
-            effectNameToAsset(
-              effectType: _effects.elementAt(index),
-              state: _effectsState.elementAt(index),
-              selected: selectedEffect == _effects.elementAt(index),
-            ),
-            fit: BoxFit.fill,
+          child: EffectImageWidget(
+            effectType: effectsChain.elementAt(index),
+            state: effectsState.elementAt(index),
+            isSelected: selectedEffect == effectsChain.elementAt(index),
           ),
         ),
       ),
@@ -141,9 +118,8 @@ class _EffectChainWidgetState extends ConsumerState<EffectChainWidget> {
     return ReorderableBuilder(
       scrollController: _scrollController,
       onReorder: (ReorderedListFunction reorderedListFunction) {
-        setState(() {
-          _effects = reorderedListFunction(_effects) as List<EffectType>;
-        });
+        final order = reorderedListFunction(effectsChain) as List<EffectType>;
+        ref.read(patchProvider.notifier).reorderEffectChain(order);
       },
       dragChildBoxDecoration: BoxDecoration(
         border: DashedBorder(
@@ -156,8 +132,7 @@ class _EffectChainWidgetState extends ConsumerState<EffectChainWidget> {
         ),
       ),
       builder: (children) {
-        return Container(
-          // color: Colors.black,
+        return SizedBox(
           width: width,
           height: height,
           child: Stack(
@@ -166,10 +141,10 @@ class _EffectChainWidgetState extends ConsumerState<EffectChainWidget> {
                 child: Image.asset('images/DarkChain.png', fit: BoxFit.fill),
               ),
               Positioned(
-                top: calculateInputChainArrowTopPosition(_inputChainPosition),
-                left: calculateInputChainArrowLeftPosition(_inputChainPosition),
+                top: calculateInputChainArrowTopPosition(inputChainPosition),
+                left: calculateInputChainArrowLeftPosition(inputChainPosition),
                 child: SizedBox(
-                  width: 10,
+                  width: _arrowWidth,
                   child: Image.asset(
                     'images/InputChainArrow.png',
                     fit: BoxFit.fill,
@@ -177,12 +152,12 @@ class _EffectChainWidgetState extends ConsumerState<EffectChainWidget> {
                 ),
               ),
               Positioned(
-                top: calculateOutputChainArrowTopPosition(_outputChainPosition),
+                top: calculateOutputChainArrowTopPosition(outputChainPosition),
                 left: calculateOutputChainArrowLeftPosition(
-                  _outputChainPosition,
+                  outputChainPosition,
                 ),
                 child: SizedBox(
-                  width: 10,
+                  width: _arrowWidth,
                   child: Image.asset(
                     'images/OutputChainArrow.png',
                     fit: BoxFit.fill,

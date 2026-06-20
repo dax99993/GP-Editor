@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       title: 'GP Editor',
       themeMode: ThemeMode.dark,
       darkTheme: darkTheme,
-      theme: lightTheme,
+      // theme: lightTheme,
       home: const HomeScreen(),
     );
   }

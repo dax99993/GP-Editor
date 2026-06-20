@@ -8,14 +8,14 @@ class EffectWidget extends StatelessWidget {
     required this.shortDescription,
     required this.onTapInfo,
     required this.onTap,
-    this.isSelected,
+    required this.isSelected,
   });
 
   final String name;
   final String shortDescription;
   final Function() onTapInfo;
   final Function() onTap;
-  final bool? isSelected;
+  final bool isSelected;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class EffectWidget extends StatelessWidget {
       borderRadius: BorderRadius.circular(18),
       onTap: onTap,
       child: RoundedCardWidget(
-        color: isSelected != null ? Colors.lightBlue : Colors.blue,
+        color: isSelected ? Colors.lightBlue : null,
         shadowColor: Colors.blueAccent,
         borderRadius: 18,
         horizontalPadding: 12,
