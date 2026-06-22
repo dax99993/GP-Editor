@@ -1,6 +1,9 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gp_editor/data/test_patch.dart';
 import 'package:gp_editor/models/effect/effect.dart';
+import 'package:gp_editor/models/parameters/parameter.dart';
+import 'package:gp_editor/models/patch/exp.dart';
 import 'package:gp_editor/models/patch/knob.dart';
 import 'package:gp_editor/models/patch/patch.dart';
 import 'package:gp_editor/providers/app_provider.dart';
@@ -15,25 +18,30 @@ class PatchNotifier extends _$PatchNotifier {
     return testPatch.copyWith(name: "My Patch");
   }
 
+  // Utils
   Effect get selectedEffect {
     final selectedEffectType = ref.read(appProvider).selectedEffect;
     return state.effects.firstWhere((e) => e.type == selectedEffectType);
   }
 
-  //
+  // Parameter firstParameter() {
+  //   state.effects
+  // }
+
+  // Effect Chain
   void reorderEffectChain(List<EffectType> order) {
     print('Changing effects chain order $order');
     // TODO: safe check no repetition of Effecttype and length of list
     state = state.copyWith(effectsChainOrder: order);
   }
 
+  // Effect
+
+  // General Settings
+
   // FxLoop
 
   // Knob
-  void setKnobModule({required int knobId, required KnobModule knobModule}) {
-    setKnob(knobId: knobId, knobModule: knobModule, moduleParamId: 0);
-  }
-
   void setKnob({
     required int knobId,
     required KnobModule knobModule,
@@ -46,12 +54,15 @@ class PatchNotifier extends _$PatchNotifier {
       moduleParamId: moduleParamId,
     );
 
-    print('New Module: ${knobs[knobId].module}');
+    // print('New Module: ${knobs[knobId].module}');
 
     state = state.copyWith(knobs: knobs);
   }
 
-  // EXP
+  void setKnobModule({required int knobId, required KnobModule knobModule}) {
+    // Get Id of first parameter
+    setKnob(knobId: knobId, knobModule: knobModule, moduleParamId: 0);
+  }
 
   // CTRL
   void toggleCtrlEffect(int ctrlId, EffectType effect) {
@@ -66,5 +77,67 @@ class PatchNotifier extends _$PatchNotifier {
     ctrls[ctrlId] = ctrls[ctrlId].copyWith(effects: effects);
 
     state = state.copyWith(ctrls: ctrls);
+  }
+
+  // EXP
+  void setExp({
+    required ExpId expId,
+    required ExpParamId paramId,
+    required ExpModule module,
+    int? moduleParamId,
+    double? min,
+    double? max,
+  }) {
+    // Get effect specified by exp module if any (off has no effect)
+    print('$expId - $paramId $module');
+    Effect? effect;
+    try {
+      effect = state.effects.firstWhere((e) => e.type.code == module.code);
+    } on StateError {
+      effect = null;
+    }
+
+    // create copy of EXPs and index of EXP we're gonna modify
+    final exps = [...state.exps];
+    final index = exps.indexWhere((e) => e.id == expId && e.paramId == paramId);
+
+    print('Effect is null? ${effect == null}');
+    print('Exp Index is $index');
+
+    // change state according to effect (exp module off -> no effect -> null)
+    if (effect == null) {
+      exps[index] = exps[index].copyWith(
+        module: module,
+        paramId: paramId,
+        moduleParamId: 0,
+        moduleParamMinValue: 0,
+        moduleParamMaxValue: 0,
+      );
+    } else {
+      Parameter param;
+
+      // Get first parameter or specified parameter by id
+      if (moduleParamId != null) {
+        param = effect.parameters.firstWhere((p) => p.id == moduleParamId);
+      } else {
+        param = effect.parameters.first;
+      }
+      print('Param ${param.id}');
+
+      exps[index] = exps[index].copyWith(
+        module: module,
+        paramId: paramId,
+        moduleParamId: param.id,
+        moduleParamMinValue: min == null
+            ? param.min
+            : clampDouble(min, param.min, param.max),
+        moduleParamMaxValue: max == null
+            ? param.max
+            : clampDouble(max, param.min, param.max),
+      );
+    }
+    print('New EXP ${exps[index]}');
+
+    state = state.copyWith(exps: exps);
   }
 }

@@ -1,3 +1,11 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'exp.freezed.dart';
+
+enum ExpId { exp1A, exp1B, exp2 }
+
+enum ExpParamId { param1, param2, param3 }
+
 enum ExpModule {
   pre(0),
   wah(1),
@@ -16,33 +24,17 @@ enum ExpModule {
   const ExpModule(this.code);
 }
 
-class Exp {
-  final int id; // EXP ID in range 0-2 [EXP1A, EXP1B, EXP2]
-  final ExpSetting module1;
-  final ExpSetting module2;
-  final ExpSetting module3;
-
-  Exp({
-    required this.id,
-    required this.module1,
-    required this.module2,
-    required this.module3,
-  }); //
-}
-
-class ExpSetting {
-  final int settingId; // setting ID in range 0-2
-  // Each EXP pedal can be assigned to change 3 different effects / modules
-  final ExpModule module; // effect / module Exp pedal is linked to
-  final int effectParamId; // Effect ID
-  final double moduleParamMinValue; // Min value to map when EXP pedal is lifted
-  final double moduleParamMaxValue; // Max value to map when pedal is pressed
-
-  ExpSetting({
-    required this.settingId,
-    required this.module,
-    required this.effectParamId,
-    required this.moduleParamMinValue,
-    required this.moduleParamMaxValue,
-  }); // Max value to map when pedal is pressed
+@freezed
+abstract class Exp with _$Exp {
+  const factory Exp({
+    required ExpId id, // EXP ID in range 0-2 [EXP1A, EXP1B, EXP2]
+    required ExpParamId
+    paramId, // Each EXP pedal can be assigned to change 3 different effects / modules
+    required ExpModule module, // To which module (effect) is it linked
+    required int moduleParamId, // Parameter in module
+    required double
+    moduleParamMinValue, // Parameter minimum value (pedal pressed)
+    required double
+    moduleParamMaxValue, // Parameter maximum value (pedal lifted)
+  }) = _Exp;
 }

@@ -36,10 +36,10 @@ abstract class Patch with _$Patch {
     // FXLoop
     required FXLoop fxLoop,
     // EXP
-    required Exp exp1a,
-    required Exp exp1b,
-    required Exp exp2,
-    // required List<Exp> exps,
+    // required Exp exp1a,
+    // required Exp exp1b,
+    // required Exp exp2,
+    required List<Exp> exps,
     // Knob
     required List<Knob> knobs,
     // CTRL

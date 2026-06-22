@@ -2,7 +2,7 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:gp_editor/screens/drums_screen.dart';
-import 'package:gp_editor/screens/edit/path_edit_screen.dart';
+import 'package:gp_editor/screens/edit/patch_edit_screen.dart';
 import 'package:gp_editor/screens/global_settings_screen.dart';
 import 'package:gp_editor/screens/home_screen.dart';
 import 'package:gp_editor/screens/manage_screen.dart';

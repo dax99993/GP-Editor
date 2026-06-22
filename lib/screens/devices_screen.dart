@@ -75,22 +75,6 @@ class DevicesScreen extends StatelessWidget {
           ElevatedButton(
             onPressed: () {
               Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => KnobSettingsScreen()),
-              );
-            },
-            child: Text('Go to Knob settings'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => CtrlSettingsScreen()),
-              );
-            },
-            child: Text('Go to CTRL settings'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.of(context).push(
                 MaterialPageRoute(builder: (context) => ExpSettingsScreen()),
               );
             },

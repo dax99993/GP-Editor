@@ -19,78 +19,83 @@ Patch testPatch = Patch(
     returnPosition: 3,
     mode: FXLoopMode.parallel,
   ),
-  exp1a: Exp(
-    id: 0,
-    module1: ExpSetting(
-      settingId: 0,
+  exps: [
+    // EXP 1A
+    Exp(
+      id: ExpId.exp1A,
+      paramId: ExpParamId.param1,
       module: ExpModule.pre,
-      effectParamId: 1,
+      moduleParamId: 1,
       moduleParamMinValue: 0,
       moduleParamMaxValue: 100,
     ),
-    module2: ExpSetting(
-      settingId: 1,
+    Exp(
+      id: ExpId.exp1A,
+      paramId: ExpParamId.param2,
       module: ExpModule.wah,
-      effectParamId: 0,
-      moduleParamMinValue: 0,
-      moduleParamMaxValue: 50,
+      moduleParamId: 0,
+      moduleParamMinValue: 50,
+      moduleParamMaxValue: 5,
     ),
-    module3: ExpSetting(
-      settingId: 2,
-      module: ExpModule.dst,
-      effectParamId: 2,
+    Exp(
+      id: ExpId.exp1A,
+      paramId: ExpParamId.param3,
+      module: ExpModule.amp,
+      moduleParamId: 1,
       moduleParamMinValue: 25,
       moduleParamMaxValue: 75,
     ),
-  ),
-  exp1b: Exp(
-    id: 1,
-    module1: ExpSetting(
-      settingId: 0,
+    // EXP 1B
+    Exp(
+      id: ExpId.exp1B,
+      paramId: ExpParamId.param1,
+      module: ExpModule.cab,
+      moduleParamId: 5,
+      moduleParamMinValue: 20,
+      moduleParamMaxValue: 120,
+    ),
+    Exp(
+      id: ExpId.exp1B,
+      paramId: ExpParamId.param2,
+      module: ExpModule.nr,
+      moduleParamId: 0,
+      moduleParamMinValue: 0,
+      moduleParamMaxValue: 1,
+    ),
+    Exp(
+      id: ExpId.exp1B,
+      paramId: ExpParamId.param3,
       module: ExpModule.pre,
-      effectParamId: 1,
+      moduleParamId: 1,
+      moduleParamMinValue: 25,
+      moduleParamMaxValue: 75,
+    ),
+    // EXP 2
+    Exp(
+      id: ExpId.exp2,
+      paramId: ExpParamId.param1,
+      module: ExpModule.off,
+      moduleParamId: 0,
       moduleParamMinValue: 0,
       moduleParamMaxValue: 100,
     ),
-    module2: ExpSetting(
-      settingId: 1,
+    Exp(
+      id: ExpId.exp2,
+      paramId: ExpParamId.param2,
       module: ExpModule.wah,
-      effectParamId: 0,
+      moduleParamId: 0,
       moduleParamMinValue: 0,
       moduleParamMaxValue: 50,
     ),
-    module3: ExpSetting(
-      settingId: 2,
-      module: ExpModule.dst,
-      effectParamId: 2,
+    Exp(
+      id: ExpId.exp2,
+      paramId: ExpParamId.param3,
+      module: ExpModule.off,
+      moduleParamId: 0,
       moduleParamMinValue: 25,
       moduleParamMaxValue: 75,
     ),
-  ),
-  exp2: Exp(
-    id: 2,
-    module1: ExpSetting(
-      settingId: 0,
-      module: ExpModule.pre,
-      effectParamId: 1,
-      moduleParamMinValue: 0,
-      moduleParamMaxValue: 100,
-    ),
-    module2: ExpSetting(
-      settingId: 1,
-      module: ExpModule.wah,
-      effectParamId: 0,
-      moduleParamMinValue: 0,
-      moduleParamMaxValue: 50,
-    ),
-    module3: ExpSetting(
-      settingId: 2,
-      module: ExpModule.dst,
-      effectParamId: 2,
-      moduleParamMinValue: 25,
-      moduleParamMaxValue: 75,
-    ),
-  ),
+  ],
   knobs: [
     Knob(id: 0, module: KnobModule.amp, moduleParamId: 1),
     Knob(id: 1, module: KnobModule.cab, moduleParamId: 1),
