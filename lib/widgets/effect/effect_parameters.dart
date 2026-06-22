@@ -72,13 +72,9 @@ class EffectParameters extends ConsumerWidget {
     );
     final patch = ref.watch(patchProvider);
     final effect = patch.effects.firstWhere((e) => e.type == selectedEffect);
-    // final effect = ref.watch(patchProvider.select((p) => p.));
-    // print(effect.type);
-    // print(effect.parameters);
 
     return Column(
       children: [
-        // for (final parameter in _effect.parameters) mapParameter(parameter),
         for (final parameter in effect.parameters) mapParameter(parameter),
       ],
     );

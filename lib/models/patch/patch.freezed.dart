@@ -277,7 +277,7 @@ as int,
 /// @nodoc
 mixin _$Patch {
 
- String get name; int get index; String get author; String get note; PatchSettings get settings; FXLoop get fxLoop; Exp get exp1a; Exp get exp1b; Exp get exp2; Knob get knob1; Knob get knob2; Knob get knob3; Ctrl get ctrl1; Ctrl get ctrl2; Ctrl get ctrl3; Ctrl get ctrl4; Ctrl get ctrl5; Ctrl get ctrl6; Ctrl get ctrl7; Ctrl get ctrl8; List<EffectType> get effectsChainOrder; List<Effect> get effects;
+ String get name; int get index; String get author; String get note; PatchSettings get settings; FXLoop get fxLoop; Exp get exp1a; Exp get exp1b; Exp get exp2; List<Knob> get knobs; List<Ctrl> get ctrls; List<EffectType> get effectsChainOrder; List<Effect> get effects;
 /// Create a copy of Patch
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -288,16 +288,16 @@ $PatchCopyWith<Patch> get copyWith => _$PatchCopyWithImpl<Patch>(this as Patch, 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Patch&&(identical(other.name, name) || other.name == name)&&(identical(other.index, index) || other.index == index)&&(identical(other.author, author) || other.author == author)&&(identical(other.note, note) || other.note == note)&&(identical(other.settings, settings) || other.settings == settings)&&(identical(other.fxLoop, fxLoop) || other.fxLoop == fxLoop)&&(identical(other.exp1a, exp1a) || other.exp1a == exp1a)&&(identical(other.exp1b, exp1b) || other.exp1b == exp1b)&&(identical(other.exp2, exp2) || other.exp2 == exp2)&&(identical(other.knob1, knob1) || other.knob1 == knob1)&&(identical(other.knob2, knob2) || other.knob2 == knob2)&&(identical(other.knob3, knob3) || other.knob3 == knob3)&&(identical(other.ctrl1, ctrl1) || other.ctrl1 == ctrl1)&&(identical(other.ctrl2, ctrl2) || other.ctrl2 == ctrl2)&&(identical(other.ctrl3, ctrl3) || other.ctrl3 == ctrl3)&&(identical(other.ctrl4, ctrl4) || other.ctrl4 == ctrl4)&&(identical(other.ctrl5, ctrl5) || other.ctrl5 == ctrl5)&&(identical(other.ctrl6, ctrl6) || other.ctrl6 == ctrl6)&&(identical(other.ctrl7, ctrl7) || other.ctrl7 == ctrl7)&&(identical(other.ctrl8, ctrl8) || other.ctrl8 == ctrl8)&&const DeepCollectionEquality().equals(other.effectsChainOrder, effectsChainOrder)&&const DeepCollectionEquality().equals(other.effects, effects));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Patch&&(identical(other.name, name) || other.name == name)&&(identical(other.index, index) || other.index == index)&&(identical(other.author, author) || other.author == author)&&(identical(other.note, note) || other.note == note)&&(identical(other.settings, settings) || other.settings == settings)&&(identical(other.fxLoop, fxLoop) || other.fxLoop == fxLoop)&&(identical(other.exp1a, exp1a) || other.exp1a == exp1a)&&(identical(other.exp1b, exp1b) || other.exp1b == exp1b)&&(identical(other.exp2, exp2) || other.exp2 == exp2)&&const DeepCollectionEquality().equals(other.knobs, knobs)&&const DeepCollectionEquality().equals(other.ctrls, ctrls)&&const DeepCollectionEquality().equals(other.effectsChainOrder, effectsChainOrder)&&const DeepCollectionEquality().equals(other.effects, effects));
 }
 
 
 @override
-int get hashCode => Object.hashAll([runtimeType,name,index,author,note,settings,fxLoop,exp1a,exp1b,exp2,knob1,knob2,knob3,ctrl1,ctrl2,ctrl3,ctrl4,ctrl5,ctrl6,ctrl7,ctrl8,const DeepCollectionEquality().hash(effectsChainOrder),const DeepCollectionEquality().hash(effects)]);
+int get hashCode => Object.hash(runtimeType,name,index,author,note,settings,fxLoop,exp1a,exp1b,exp2,const DeepCollectionEquality().hash(knobs),const DeepCollectionEquality().hash(ctrls),const DeepCollectionEquality().hash(effectsChainOrder),const DeepCollectionEquality().hash(effects));
 
 @override
 String toString() {
-  return 'Patch(name: $name, index: $index, author: $author, note: $note, settings: $settings, fxLoop: $fxLoop, exp1a: $exp1a, exp1b: $exp1b, exp2: $exp2, knob1: $knob1, knob2: $knob2, knob3: $knob3, ctrl1: $ctrl1, ctrl2: $ctrl2, ctrl3: $ctrl3, ctrl4: $ctrl4, ctrl5: $ctrl5, ctrl6: $ctrl6, ctrl7: $ctrl7, ctrl8: $ctrl8, effectsChainOrder: $effectsChainOrder, effects: $effects)';
+  return 'Patch(name: $name, index: $index, author: $author, note: $note, settings: $settings, fxLoop: $fxLoop, exp1a: $exp1a, exp1b: $exp1b, exp2: $exp2, knobs: $knobs, ctrls: $ctrls, effectsChainOrder: $effectsChainOrder, effects: $effects)';
 }
 
 
@@ -308,7 +308,7 @@ abstract mixin class $PatchCopyWith<$Res>  {
   factory $PatchCopyWith(Patch value, $Res Function(Patch) _then) = _$PatchCopyWithImpl;
 @useResult
 $Res call({
- String name, int index, String author, String note, PatchSettings settings, FXLoop fxLoop, Exp exp1a, Exp exp1b, Exp exp2, Knob knob1, Knob knob2, Knob knob3, Ctrl ctrl1, Ctrl ctrl2, Ctrl ctrl3, Ctrl ctrl4, Ctrl ctrl5, Ctrl ctrl6, Ctrl ctrl7, Ctrl ctrl8, List<EffectType> effectsChainOrder, List<Effect> effects
+ String name, int index, String author, String note, PatchSettings settings, FXLoop fxLoop, Exp exp1a, Exp exp1b, Exp exp2, List<Knob> knobs, List<Ctrl> ctrls, List<EffectType> effectsChainOrder, List<Effect> effects
 });
 
 
@@ -325,7 +325,7 @@ class _$PatchCopyWithImpl<$Res>
 
 /// Create a copy of Patch
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? index = null,Object? author = null,Object? note = null,Object? settings = null,Object? fxLoop = null,Object? exp1a = null,Object? exp1b = null,Object? exp2 = null,Object? knob1 = null,Object? knob2 = null,Object? knob3 = null,Object? ctrl1 = null,Object? ctrl2 = null,Object? ctrl3 = null,Object? ctrl4 = null,Object? ctrl5 = null,Object? ctrl6 = null,Object? ctrl7 = null,Object? ctrl8 = null,Object? effectsChainOrder = null,Object? effects = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? index = null,Object? author = null,Object? note = null,Object? settings = null,Object? fxLoop = null,Object? exp1a = null,Object? exp1b = null,Object? exp2 = null,Object? knobs = null,Object? ctrls = null,Object? effectsChainOrder = null,Object? effects = null,}) {
   return _then(_self.copyWith(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,index: null == index ? _self.index : index // ignore: cast_nullable_to_non_nullable
@@ -336,18 +336,9 @@ as PatchSettings,fxLoop: null == fxLoop ? _self.fxLoop : fxLoop // ignore: cast_
 as FXLoop,exp1a: null == exp1a ? _self.exp1a : exp1a // ignore: cast_nullable_to_non_nullable
 as Exp,exp1b: null == exp1b ? _self.exp1b : exp1b // ignore: cast_nullable_to_non_nullable
 as Exp,exp2: null == exp2 ? _self.exp2 : exp2 // ignore: cast_nullable_to_non_nullable
-as Exp,knob1: null == knob1 ? _self.knob1 : knob1 // ignore: cast_nullable_to_non_nullable
-as Knob,knob2: null == knob2 ? _self.knob2 : knob2 // ignore: cast_nullable_to_non_nullable
-as Knob,knob3: null == knob3 ? _self.knob3 : knob3 // ignore: cast_nullable_to_non_nullable
-as Knob,ctrl1: null == ctrl1 ? _self.ctrl1 : ctrl1 // ignore: cast_nullable_to_non_nullable
-as Ctrl,ctrl2: null == ctrl2 ? _self.ctrl2 : ctrl2 // ignore: cast_nullable_to_non_nullable
-as Ctrl,ctrl3: null == ctrl3 ? _self.ctrl3 : ctrl3 // ignore: cast_nullable_to_non_nullable
-as Ctrl,ctrl4: null == ctrl4 ? _self.ctrl4 : ctrl4 // ignore: cast_nullable_to_non_nullable
-as Ctrl,ctrl5: null == ctrl5 ? _self.ctrl5 : ctrl5 // ignore: cast_nullable_to_non_nullable
-as Ctrl,ctrl6: null == ctrl6 ? _self.ctrl6 : ctrl6 // ignore: cast_nullable_to_non_nullable
-as Ctrl,ctrl7: null == ctrl7 ? _self.ctrl7 : ctrl7 // ignore: cast_nullable_to_non_nullable
-as Ctrl,ctrl8: null == ctrl8 ? _self.ctrl8 : ctrl8 // ignore: cast_nullable_to_non_nullable
-as Ctrl,effectsChainOrder: null == effectsChainOrder ? _self.effectsChainOrder : effectsChainOrder // ignore: cast_nullable_to_non_nullable
+as Exp,knobs: null == knobs ? _self.knobs : knobs // ignore: cast_nullable_to_non_nullable
+as List<Knob>,ctrls: null == ctrls ? _self.ctrls : ctrls // ignore: cast_nullable_to_non_nullable
+as List<Ctrl>,effectsChainOrder: null == effectsChainOrder ? _self.effectsChainOrder : effectsChainOrder // ignore: cast_nullable_to_non_nullable
 as List<EffectType>,effects: null == effects ? _self.effects : effects // ignore: cast_nullable_to_non_nullable
 as List<Effect>,
   ));
@@ -443,10 +434,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name,  int index,  String author,  String note,  PatchSettings settings,  FXLoop fxLoop,  Exp exp1a,  Exp exp1b,  Exp exp2,  Knob knob1,  Knob knob2,  Knob knob3,  Ctrl ctrl1,  Ctrl ctrl2,  Ctrl ctrl3,  Ctrl ctrl4,  Ctrl ctrl5,  Ctrl ctrl6,  Ctrl ctrl7,  Ctrl ctrl8,  List<EffectType> effectsChainOrder,  List<Effect> effects)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name,  int index,  String author,  String note,  PatchSettings settings,  FXLoop fxLoop,  Exp exp1a,  Exp exp1b,  Exp exp2,  List<Knob> knobs,  List<Ctrl> ctrls,  List<EffectType> effectsChainOrder,  List<Effect> effects)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Patch() when $default != null:
-return $default(_that.name,_that.index,_that.author,_that.note,_that.settings,_that.fxLoop,_that.exp1a,_that.exp1b,_that.exp2,_that.knob1,_that.knob2,_that.knob3,_that.ctrl1,_that.ctrl2,_that.ctrl3,_that.ctrl4,_that.ctrl5,_that.ctrl6,_that.ctrl7,_that.ctrl8,_that.effectsChainOrder,_that.effects);case _:
+return $default(_that.name,_that.index,_that.author,_that.note,_that.settings,_that.fxLoop,_that.exp1a,_that.exp1b,_that.exp2,_that.knobs,_that.ctrls,_that.effectsChainOrder,_that.effects);case _:
   return orElse();
 
 }
@@ -464,10 +455,10 @@ return $default(_that.name,_that.index,_that.author,_that.note,_that.settings,_t
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  int index,  String author,  String note,  PatchSettings settings,  FXLoop fxLoop,  Exp exp1a,  Exp exp1b,  Exp exp2,  Knob knob1,  Knob knob2,  Knob knob3,  Ctrl ctrl1,  Ctrl ctrl2,  Ctrl ctrl3,  Ctrl ctrl4,  Ctrl ctrl5,  Ctrl ctrl6,  Ctrl ctrl7,  Ctrl ctrl8,  List<EffectType> effectsChainOrder,  List<Effect> effects)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  int index,  String author,  String note,  PatchSettings settings,  FXLoop fxLoop,  Exp exp1a,  Exp exp1b,  Exp exp2,  List<Knob> knobs,  List<Ctrl> ctrls,  List<EffectType> effectsChainOrder,  List<Effect> effects)  $default,) {final _that = this;
 switch (_that) {
 case _Patch():
-return $default(_that.name,_that.index,_that.author,_that.note,_that.settings,_that.fxLoop,_that.exp1a,_that.exp1b,_that.exp2,_that.knob1,_that.knob2,_that.knob3,_that.ctrl1,_that.ctrl2,_that.ctrl3,_that.ctrl4,_that.ctrl5,_that.ctrl6,_that.ctrl7,_that.ctrl8,_that.effectsChainOrder,_that.effects);case _:
+return $default(_that.name,_that.index,_that.author,_that.note,_that.settings,_that.fxLoop,_that.exp1a,_that.exp1b,_that.exp2,_that.knobs,_that.ctrls,_that.effectsChainOrder,_that.effects);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -484,10 +475,10 @@ return $default(_that.name,_that.index,_that.author,_that.note,_that.settings,_t
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name,  int index,  String author,  String note,  PatchSettings settings,  FXLoop fxLoop,  Exp exp1a,  Exp exp1b,  Exp exp2,  Knob knob1,  Knob knob2,  Knob knob3,  Ctrl ctrl1,  Ctrl ctrl2,  Ctrl ctrl3,  Ctrl ctrl4,  Ctrl ctrl5,  Ctrl ctrl6,  Ctrl ctrl7,  Ctrl ctrl8,  List<EffectType> effectsChainOrder,  List<Effect> effects)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name,  int index,  String author,  String note,  PatchSettings settings,  FXLoop fxLoop,  Exp exp1a,  Exp exp1b,  Exp exp2,  List<Knob> knobs,  List<Ctrl> ctrls,  List<EffectType> effectsChainOrder,  List<Effect> effects)?  $default,) {final _that = this;
 switch (_that) {
 case _Patch() when $default != null:
-return $default(_that.name,_that.index,_that.author,_that.note,_that.settings,_that.fxLoop,_that.exp1a,_that.exp1b,_that.exp2,_that.knob1,_that.knob2,_that.knob3,_that.ctrl1,_that.ctrl2,_that.ctrl3,_that.ctrl4,_that.ctrl5,_that.ctrl6,_that.ctrl7,_that.ctrl8,_that.effectsChainOrder,_that.effects);case _:
+return $default(_that.name,_that.index,_that.author,_that.note,_that.settings,_that.fxLoop,_that.exp1a,_that.exp1b,_that.exp2,_that.knobs,_that.ctrls,_that.effectsChainOrder,_that.effects);case _:
   return null;
 
 }
@@ -499,7 +490,7 @@ return $default(_that.name,_that.index,_that.author,_that.note,_that.settings,_t
 
 
 class _Patch implements Patch {
-  const _Patch({required this.name, required this.index, required this.author, required this.note, required this.settings, required this.fxLoop, required this.exp1a, required this.exp1b, required this.exp2, required this.knob1, required this.knob2, required this.knob3, required this.ctrl1, required this.ctrl2, required this.ctrl3, required this.ctrl4, required this.ctrl5, required this.ctrl6, required this.ctrl7, required this.ctrl8, required final  List<EffectType> effectsChainOrder, required final  List<Effect> effects}): _effectsChainOrder = effectsChainOrder,_effects = effects;
+  const _Patch({required this.name, required this.index, required this.author, required this.note, required this.settings, required this.fxLoop, required this.exp1a, required this.exp1b, required this.exp2, required final  List<Knob> knobs, required final  List<Ctrl> ctrls, required final  List<EffectType> effectsChainOrder, required final  List<Effect> effects}): _knobs = knobs,_ctrls = ctrls,_effectsChainOrder = effectsChainOrder,_effects = effects;
   
 
 @override final  String name;
@@ -511,17 +502,20 @@ class _Patch implements Patch {
 @override final  Exp exp1a;
 @override final  Exp exp1b;
 @override final  Exp exp2;
-@override final  Knob knob1;
-@override final  Knob knob2;
-@override final  Knob knob3;
-@override final  Ctrl ctrl1;
-@override final  Ctrl ctrl2;
-@override final  Ctrl ctrl3;
-@override final  Ctrl ctrl4;
-@override final  Ctrl ctrl5;
-@override final  Ctrl ctrl6;
-@override final  Ctrl ctrl7;
-@override final  Ctrl ctrl8;
+ final  List<Knob> _knobs;
+@override List<Knob> get knobs {
+  if (_knobs is EqualUnmodifiableListView) return _knobs;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_knobs);
+}
+
+ final  List<Ctrl> _ctrls;
+@override List<Ctrl> get ctrls {
+  if (_ctrls is EqualUnmodifiableListView) return _ctrls;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_ctrls);
+}
+
  final  List<EffectType> _effectsChainOrder;
 @override List<EffectType> get effectsChainOrder {
   if (_effectsChainOrder is EqualUnmodifiableListView) return _effectsChainOrder;
@@ -547,16 +541,16 @@ _$PatchCopyWith<_Patch> get copyWith => __$PatchCopyWithImpl<_Patch>(this, _$ide
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Patch&&(identical(other.name, name) || other.name == name)&&(identical(other.index, index) || other.index == index)&&(identical(other.author, author) || other.author == author)&&(identical(other.note, note) || other.note == note)&&(identical(other.settings, settings) || other.settings == settings)&&(identical(other.fxLoop, fxLoop) || other.fxLoop == fxLoop)&&(identical(other.exp1a, exp1a) || other.exp1a == exp1a)&&(identical(other.exp1b, exp1b) || other.exp1b == exp1b)&&(identical(other.exp2, exp2) || other.exp2 == exp2)&&(identical(other.knob1, knob1) || other.knob1 == knob1)&&(identical(other.knob2, knob2) || other.knob2 == knob2)&&(identical(other.knob3, knob3) || other.knob3 == knob3)&&(identical(other.ctrl1, ctrl1) || other.ctrl1 == ctrl1)&&(identical(other.ctrl2, ctrl2) || other.ctrl2 == ctrl2)&&(identical(other.ctrl3, ctrl3) || other.ctrl3 == ctrl3)&&(identical(other.ctrl4, ctrl4) || other.ctrl4 == ctrl4)&&(identical(other.ctrl5, ctrl5) || other.ctrl5 == ctrl5)&&(identical(other.ctrl6, ctrl6) || other.ctrl6 == ctrl6)&&(identical(other.ctrl7, ctrl7) || other.ctrl7 == ctrl7)&&(identical(other.ctrl8, ctrl8) || other.ctrl8 == ctrl8)&&const DeepCollectionEquality().equals(other._effectsChainOrder, _effectsChainOrder)&&const DeepCollectionEquality().equals(other._effects, _effects));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Patch&&(identical(other.name, name) || other.name == name)&&(identical(other.index, index) || other.index == index)&&(identical(other.author, author) || other.author == author)&&(identical(other.note, note) || other.note == note)&&(identical(other.settings, settings) || other.settings == settings)&&(identical(other.fxLoop, fxLoop) || other.fxLoop == fxLoop)&&(identical(other.exp1a, exp1a) || other.exp1a == exp1a)&&(identical(other.exp1b, exp1b) || other.exp1b == exp1b)&&(identical(other.exp2, exp2) || other.exp2 == exp2)&&const DeepCollectionEquality().equals(other._knobs, _knobs)&&const DeepCollectionEquality().equals(other._ctrls, _ctrls)&&const DeepCollectionEquality().equals(other._effectsChainOrder, _effectsChainOrder)&&const DeepCollectionEquality().equals(other._effects, _effects));
 }
 
 
 @override
-int get hashCode => Object.hashAll([runtimeType,name,index,author,note,settings,fxLoop,exp1a,exp1b,exp2,knob1,knob2,knob3,ctrl1,ctrl2,ctrl3,ctrl4,ctrl5,ctrl6,ctrl7,ctrl8,const DeepCollectionEquality().hash(_effectsChainOrder),const DeepCollectionEquality().hash(_effects)]);
+int get hashCode => Object.hash(runtimeType,name,index,author,note,settings,fxLoop,exp1a,exp1b,exp2,const DeepCollectionEquality().hash(_knobs),const DeepCollectionEquality().hash(_ctrls),const DeepCollectionEquality().hash(_effectsChainOrder),const DeepCollectionEquality().hash(_effects));
 
 @override
 String toString() {
-  return 'Patch(name: $name, index: $index, author: $author, note: $note, settings: $settings, fxLoop: $fxLoop, exp1a: $exp1a, exp1b: $exp1b, exp2: $exp2, knob1: $knob1, knob2: $knob2, knob3: $knob3, ctrl1: $ctrl1, ctrl2: $ctrl2, ctrl3: $ctrl3, ctrl4: $ctrl4, ctrl5: $ctrl5, ctrl6: $ctrl6, ctrl7: $ctrl7, ctrl8: $ctrl8, effectsChainOrder: $effectsChainOrder, effects: $effects)';
+  return 'Patch(name: $name, index: $index, author: $author, note: $note, settings: $settings, fxLoop: $fxLoop, exp1a: $exp1a, exp1b: $exp1b, exp2: $exp2, knobs: $knobs, ctrls: $ctrls, effectsChainOrder: $effectsChainOrder, effects: $effects)';
 }
 
 
@@ -567,7 +561,7 @@ abstract mixin class _$PatchCopyWith<$Res> implements $PatchCopyWith<$Res> {
   factory _$PatchCopyWith(_Patch value, $Res Function(_Patch) _then) = __$PatchCopyWithImpl;
 @override @useResult
 $Res call({
- String name, int index, String author, String note, PatchSettings settings, FXLoop fxLoop, Exp exp1a, Exp exp1b, Exp exp2, Knob knob1, Knob knob2, Knob knob3, Ctrl ctrl1, Ctrl ctrl2, Ctrl ctrl3, Ctrl ctrl4, Ctrl ctrl5, Ctrl ctrl6, Ctrl ctrl7, Ctrl ctrl8, List<EffectType> effectsChainOrder, List<Effect> effects
+ String name, int index, String author, String note, PatchSettings settings, FXLoop fxLoop, Exp exp1a, Exp exp1b, Exp exp2, List<Knob> knobs, List<Ctrl> ctrls, List<EffectType> effectsChainOrder, List<Effect> effects
 });
 
 
@@ -584,7 +578,7 @@ class __$PatchCopyWithImpl<$Res>
 
 /// Create a copy of Patch
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? index = null,Object? author = null,Object? note = null,Object? settings = null,Object? fxLoop = null,Object? exp1a = null,Object? exp1b = null,Object? exp2 = null,Object? knob1 = null,Object? knob2 = null,Object? knob3 = null,Object? ctrl1 = null,Object? ctrl2 = null,Object? ctrl3 = null,Object? ctrl4 = null,Object? ctrl5 = null,Object? ctrl6 = null,Object? ctrl7 = null,Object? ctrl8 = null,Object? effectsChainOrder = null,Object? effects = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? index = null,Object? author = null,Object? note = null,Object? settings = null,Object? fxLoop = null,Object? exp1a = null,Object? exp1b = null,Object? exp2 = null,Object? knobs = null,Object? ctrls = null,Object? effectsChainOrder = null,Object? effects = null,}) {
   return _then(_Patch(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,index: null == index ? _self.index : index // ignore: cast_nullable_to_non_nullable
@@ -595,18 +589,9 @@ as PatchSettings,fxLoop: null == fxLoop ? _self.fxLoop : fxLoop // ignore: cast_
 as FXLoop,exp1a: null == exp1a ? _self.exp1a : exp1a // ignore: cast_nullable_to_non_nullable
 as Exp,exp1b: null == exp1b ? _self.exp1b : exp1b // ignore: cast_nullable_to_non_nullable
 as Exp,exp2: null == exp2 ? _self.exp2 : exp2 // ignore: cast_nullable_to_non_nullable
-as Exp,knob1: null == knob1 ? _self.knob1 : knob1 // ignore: cast_nullable_to_non_nullable
-as Knob,knob2: null == knob2 ? _self.knob2 : knob2 // ignore: cast_nullable_to_non_nullable
-as Knob,knob3: null == knob3 ? _self.knob3 : knob3 // ignore: cast_nullable_to_non_nullable
-as Knob,ctrl1: null == ctrl1 ? _self.ctrl1 : ctrl1 // ignore: cast_nullable_to_non_nullable
-as Ctrl,ctrl2: null == ctrl2 ? _self.ctrl2 : ctrl2 // ignore: cast_nullable_to_non_nullable
-as Ctrl,ctrl3: null == ctrl3 ? _self.ctrl3 : ctrl3 // ignore: cast_nullable_to_non_nullable
-as Ctrl,ctrl4: null == ctrl4 ? _self.ctrl4 : ctrl4 // ignore: cast_nullable_to_non_nullable
-as Ctrl,ctrl5: null == ctrl5 ? _self.ctrl5 : ctrl5 // ignore: cast_nullable_to_non_nullable
-as Ctrl,ctrl6: null == ctrl6 ? _self.ctrl6 : ctrl6 // ignore: cast_nullable_to_non_nullable
-as Ctrl,ctrl7: null == ctrl7 ? _self.ctrl7 : ctrl7 // ignore: cast_nullable_to_non_nullable
-as Ctrl,ctrl8: null == ctrl8 ? _self.ctrl8 : ctrl8 // ignore: cast_nullable_to_non_nullable
-as Ctrl,effectsChainOrder: null == effectsChainOrder ? _self._effectsChainOrder : effectsChainOrder // ignore: cast_nullable_to_non_nullable
+as Exp,knobs: null == knobs ? _self._knobs : knobs // ignore: cast_nullable_to_non_nullable
+as List<Knob>,ctrls: null == ctrls ? _self._ctrls : ctrls // ignore: cast_nullable_to_non_nullable
+as List<Ctrl>,effectsChainOrder: null == effectsChainOrder ? _self._effectsChainOrder : effectsChainOrder // ignore: cast_nullable_to_non_nullable
 as List<EffectType>,effects: null == effects ? _self._effects : effects // ignore: cast_nullable_to_non_nullable
 as List<Effect>,
   ));

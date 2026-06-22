@@ -14,45 +14,48 @@ class KnobSettingsScreen extends ConsumerStatefulWidget {
 }
 
 class _KnobSettingsScreenState extends ConsumerState<KnobSettingsScreen> {
-  KnobOption _knobView = .knob1;
-  Widget _content = Placeholder();
+  KnobOption _knobSelected = .knob1;
+  // Widget _content = Placeholder();
 
   @override
   void initState() {
-    final knob1 = ref.read(patchProvider.select((p) => p.knob1));
+    // final knob1 = ref.read(patchProvider.select((p) => p.knob1));
     setState(() {
-      _content = KnobSettings(knobOption: _knobView, knobModule: knob1.module);
+      _knobSelected = .knob1;
+      // _content = KnobSettings(
+      //   knobOption: _knobSelected,
+      //   knobModule: knob1.module,
+      // );
     });
 
     super.initState();
   }
 
   void changeKnobView(Set<KnobOption> p) {
-    final knobOption = p.first;
-    Knob knob;
-    if (knobOption == .knob1) {
-      knob = ref.read(patchProvider.select((p) => p.knob1));
-    } else if (knobOption == .knob2) {
-      knob = ref.read(patchProvider.select((p) => p.knob2));
-    } else {
-      knob = ref.read(patchProvider.select((p) => p.knob3));
-    }
+    final knobSelected = p.first;
 
-    print(p);
-    print(knob.module);
-    print(knob.effectParamId);
+    // Knob knob;
+    // if (knobOption == .knob1) {
+    //   knob = ref.read(patchProvider.select((p) => p.knob1));
+    // }
+
+    print('Selected Knob $knobSelected');
 
     setState(() {
-      _knobView = knobOption;
-      _content = KnobSettings(knobOption: knobOption, knobModule: knob.module);
+      _knobSelected = knobSelected;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    final _ = ref.watch(patchProvider.select((p) => p.knob1));
-    final _ = ref.watch(patchProvider.select((p) => p.knob2));
-    final _ = ref.watch(patchProvider.select((p) => p.knob3));
+    // final _ = ref.watch(patchProvider.select((p) => p.knob1));
+    // final _ = ref.watch(patchProvider.select((p) => p.knob2));
+    // final _ = ref.watch(patchProvider.select((p) => p.knob3));
+
+    // final knobs = ref.watch(patchProvider.select((p) => p.knobs));
+    // final knob = knobs[_knobSelected.index];
+
+    print('knob selected ${_knobSelected}');
 
     return Scaffold(
       appBar: AppBar(title: Text('Knob Settings')),
@@ -66,24 +69,22 @@ class _KnobSettingsScreenState extends ConsumerState<KnobSettingsScreen> {
                 ButtonSegment<KnobOption>(
                   value: KnobOption.knob1,
                   label: Text('Knob 1'),
-                  // icon: Icon(Icons.number),
                 ),
                 ButtonSegment<KnobOption>(
                   value: KnobOption.knob2,
                   label: Text('Knob 2'),
-                  // icon: Icon(Icons.calendar_view_day),
                 ),
                 ButtonSegment<KnobOption>(
                   value: KnobOption.knob3,
                   label: Text('Knob 3'),
-                  // icon: Icon(Icons.calendar_view_day),
                 ),
               ],
-              selected: <KnobOption>{_knobView},
+              selected: <KnobOption>{_knobSelected},
               onSelectionChanged: changeKnobView,
             ),
           ),
-          _content,
+          KnobSettings(knobIndex: _knobSelected.index),
+          // _content,
           // KnobSettings(knobOption: .knob1, knobModule: KnobModule.amp),
           // KnobSettings(knobOption: .knob2, knobModule: KnobModule.dst),
           // KnobSettings(knobOption: .knob3, knobModule: KnobModule.bpm),
@@ -93,34 +94,76 @@ class _KnobSettingsScreenState extends ConsumerState<KnobSettingsScreen> {
   }
 }
 
-class KnobSettings extends StatelessWidget {
-  const KnobSettings({
-    super.key,
-    required this.knobOption,
-    required this.knobModule,
-  });
+// class KnobSettings extends StatelessWidget {
+//   const KnobSettings({
+//     super.key,
+//     required this.knobOption,
+//     required this.knobModule,
+//   });
 
-  final KnobOption knobOption;
-  final KnobModule knobModule;
-  // final String moduleParams;
+//   final KnobOption knobOption;
+//   final KnobModule knobModule;
+//   // final String moduleParams;
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Column(
+//       children: [
+//         Text(
+//           knobOption.name,
+//           style: Theme.of(
+//             context,
+//           ).textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.bold),
+//         ),
+//         const SizedBox(height: 8),
+//         InputComboxWidget(
+//           value: knobModule,
+//           entries: KnobModule.values.asNameMap(),
+//           label: 'Knob Module',
+//           onChanged: (val) {
+//             print('Change ${knobOption.name} module to ${val.name}');
+//           },
+//         ),
+//         InputComboxWidget(
+//           value: KnobModule.nr,
+//           entries: KnobModule.values.asNameMap(),
+//           label: 'Module parameter',
+//           onChanged: (val) {},
+//         ),
+//       ],
+//     );
+//   }
+// }
+
+class KnobSettings extends ConsumerWidget {
+  const KnobSettings({super.key, required this.knobIndex});
+
+  final int knobIndex;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final knobs = ref.watch(patchProvider.select((p) => p.knobs));
+    final knob = knobs[knobIndex];
+
+    print('knob module ${knob.module}');
+
     return Column(
       children: [
         Text(
-          knobOption.name,
+          knob.id.toString(),
           style: Theme.of(
             context,
           ).textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 8),
+        Text('Module ${knob.module.name}'),
+        Text('Effect Param ${knob.effectParamId}'),
         InputComboxWidget(
-          value: knobModule,
+          value: knob.module,
           entries: KnobModule.values.asNameMap(),
           label: 'Knob Module',
           onChanged: (val) {
-            print('Change ${knobOption.name} module to ${val.name}');
+            print('Change ${knob.id} module to ${val.name}');
           },
         ),
         InputComboxWidget(

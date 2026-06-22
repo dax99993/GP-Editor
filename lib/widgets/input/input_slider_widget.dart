@@ -140,7 +140,7 @@ class _InputSliderWidgetState extends State<InputSliderWidget> {
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               IconButton(onPressed: _onDecrement, icon: Icon(Icons.remove)),
               Expanded(

@@ -2,7 +2,7 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:gp_editor/screens/drums_screen.dart';
-import 'package:gp_editor/screens/edit/edit_screen.dart';
+import 'package:gp_editor/screens/edit/path_edit_screen.dart';
 import 'package:gp_editor/screens/global_settings_screen.dart';
 import 'package:gp_editor/screens/home_screen.dart';
 import 'package:gp_editor/screens/manage_screen.dart';
@@ -26,7 +26,7 @@ class _GP200ScreenState extends State<GP200Screen> {
   }
 
   final List<Widget> _screens = [
-    EditScreen(),
+    PatchEditScreen(),
     DrumsScreen(),
     GlobalSettingsScreen(),
     ManageScreen(),
@@ -40,32 +40,6 @@ class _GP200ScreenState extends State<GP200Screen> {
       builder: (context, constraints) {
         if (constraints.maxWidth <= 600) {
           return Scaffold(
-            appBar: AppBar(
-              leading: IconButton(
-                onPressed: () {
-                  Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(builder: (context) => HomeScreen()),
-                    (route) => false,
-                  );
-                },
-                icon: Icon(Icons.home),
-              ),
-              // title: RoundedCard(child: Text('Patch Name')),
-              title: ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => PatchesScreen()),
-                  );
-                },
-                child: Text('Patch Name'),
-              ),
-              actions: [
-                IconButton(onPressed: () {}, icon: Icon(Icons.chevron_left)),
-                IconButton(onPressed: () {}, icon: Icon(Icons.chevron_right)),
-                IconButton(onPressed: () {}, icon: Icon(Icons.save)),
-                IconButton(onPressed: () {}, icon: Icon(Icons.more_vert)),
-              ],
-            ),
             body: Container(
               width: double.infinity,
               decoration: BoxDecoration(
@@ -76,10 +50,7 @@ class _GP200ScreenState extends State<GP200Screen> {
                   transform: GradientRotation(math.pi * 1.25),
                 ),
               ),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: content,
-              ),
+              child: content,
             ),
             bottomNavigationBar: BottomNavigationBar(
               items: const <BottomNavigationBarItem>[
@@ -111,40 +82,6 @@ class _GP200ScreenState extends State<GP200Screen> {
             children: [
               Expanded(
                 child: Scaffold(
-                  appBar: AppBar(
-                    backgroundColor: Colors.white10,
-                    leading: IconButton(
-                      onPressed: () {
-                        Navigator.of(context).pushAndRemoveUntil(
-                          MaterialPageRoute(builder: (context) => HomeScreen()),
-                          (route) => false,
-                        );
-                      },
-                      icon: Icon(Icons.home),
-                    ),
-                    title: ElevatedButton(
-                      onPressed: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => PatchesScreen(),
-                          ),
-                        );
-                      },
-                      child: Text('Patch Name'),
-                    ),
-                    actions: [
-                      IconButton(
-                        onPressed: () {},
-                        icon: Icon(Icons.chevron_left),
-                      ),
-                      IconButton(
-                        onPressed: () {},
-                        icon: Icon(Icons.chevron_right),
-                      ),
-                      IconButton(onPressed: () {}, icon: Icon(Icons.save)),
-                      IconButton(onPressed: () {}, icon: Icon(Icons.more_vert)),
-                    ],
-                  ),
                   body: Container(
                     width: double.infinity,
                     decoration: BoxDecoration(

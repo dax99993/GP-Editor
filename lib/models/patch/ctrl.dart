@@ -1,12 +1,13 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:gp_editor/models/effect/effect.dart';
 
-class Ctrl {
-  final int id; // id of ctrl in range 0-7
-  // final int mode; // mode yellow -> 0 ; red -> 1
-  final List<EffectType> effects;
+part 'ctrl.freezed.dart';
 
-  Ctrl({
-    required this.id,
-    required this.effects,
-  }); // Effects assign to turn on/off
+@freezed
+abstract class Ctrl with _$Ctrl {
+  const factory Ctrl({
+    required int id, // id of ctrl in range 0-7
+    // final int mode; // mode yellow -> 0 ; red -> 1
+    required List<EffectType> effects,
+  }) = _Ctrl; // Effects assign to turn on/off
 }

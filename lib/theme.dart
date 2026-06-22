@@ -126,6 +126,21 @@ final darkTheme = ThemeData(
       return themeColors.switchOverlayUnselected;
     }),
   ),
+  checkboxTheme: CheckboxThemeData().copyWith(
+    fillColor: WidgetStateProperty.resolveWith((states) {
+      if (states.contains(WidgetState.selected)) {
+        return Colors.blue; // Color when checked
+      }
+      return Colors.transparent; // No fill when unchecked
+    }),
+    checkColor: WidgetStatePropertyAll(Colors.transparent),
+    side: WidgetStateBorderSide.resolveWith(
+      (states) => const BorderSide(
+        color: Colors.white, // Border color
+        width: 2.0, // Border width
+      ),
+    ),
+  ),
   buttonTheme: ButtonThemeData().copyWith(buttonColor: Colors.grey),
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ButtonStyle().copyWith(
