@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gp_editor/data/test_patch.dart';
 import 'package:gp_editor/models/effect/effect.dart';
+import 'package:gp_editor/models/patch/knob.dart';
 import 'package:gp_editor/models/patch/patch.dart';
 import 'package:gp_editor/providers/app_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -29,29 +30,31 @@ class PatchNotifier extends _$PatchNotifier {
   // FxLoop
 
   // Knob
+  void setKnobModule({required int knobId, required KnobModule knobModule}) {
+    setKnob(knobId: knobId, knobModule: knobModule, moduleParamId: 0);
+  }
+
+  void setKnob({
+    required int knobId,
+    required KnobModule knobModule,
+    required int moduleParamId,
+  }) {
+    final knobs = [...state.knobs];
+
+    knobs[knobId] = knobs[knobId].copyWith(
+      module: knobModule,
+      moduleParamId: moduleParamId,
+    );
+
+    print('New Module: ${knobs[knobId].module}');
+
+    state = state.copyWith(knobs: knobs);
+  }
 
   // EXP
 
   // CTRL
   void toggleCtrlEffect(int ctrlId, EffectType effect) {
-    // final ctrls = state.ctrls;
-    // final ctrl = ctrls[ctrlId];
-    // final effects = ctrl.effects;
-
-    // List<EffectType> newEffects = [];
-    // if (effects.contains(effect)) {
-    //   newEffects = [...effects.where((e) => e != effect)];
-    // } else {
-    //   newEffects = [...effects, effect];
-    // }
-
-    // final newCtrl = ctrl.copyWith(effects: newEffects);
-    // final newCtrls = [...ctrls];
-    // newCtrls[ctrlId] = newCtrl;
-
-    // print('Changed Effects $newEffects');
-    // state = state.copyWith(ctrls: newCtrls);
-
     final ctrls = [...state.ctrls];
     final effects = [...ctrls[ctrlId].effects];
     if (effects.contains(effect)) {

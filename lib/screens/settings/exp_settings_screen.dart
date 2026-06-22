@@ -14,14 +14,14 @@ enum ExpPedal { oneA, oneB, two }
 
 enum ExpModuleSelection { one, two, three }
 
-class ExpSettingsScreen extends ConsumerStatefulWidget {
+class ExpSettingsScreen extends StatefulWidget {
   const ExpSettingsScreen({super.key});
 
   @override
-  ConsumerState<ExpSettingsScreen> createState() => _ExpSettingsScreenState();
+  State<ExpSettingsScreen> createState() => _ExpSettingsScreenState();
 }
 
-class _ExpSettingsScreenState extends ConsumerState<ExpSettingsScreen> {
+class _ExpSettingsScreenState extends State<ExpSettingsScreen> {
   ExpPedal _expSelected = ExpPedal.oneA;
   ExpModuleSelection _expModuleSelected = ExpModuleSelection.one;
 
@@ -57,28 +57,28 @@ class _ExpSettingsScreenState extends ConsumerState<ExpSettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final exp1a = ref.watch(patchProvider.select((p) => p.exp1a));
-    final exp1b = ref.watch(patchProvider.select((p) => p.exp1b));
-    final exp2 = ref.watch(patchProvider.select((p) => p.exp2));
+    // final exp1a = ref.watch(patchProvider.select((p) => p.exp1a));
+    // final exp1b = ref.watch(patchProvider.select((p) => p.exp1b));
+    // final exp2 = ref.watch(patchProvider.select((p) => p.exp2));
 
-    Exp exp;
-    if (_expSelected == .oneA) {
-      exp = exp1a;
-    } else if (_expSelected == .oneB) {
-      exp = exp1b;
-    } else {
-      exp = exp2;
-    }
+    // Exp exp;
+    // if (_expSelected == .oneA) {
+    //   exp = exp1a;
+    // } else if (_expSelected == .oneB) {
+    //   exp = exp1b;
+    // } else {
+    //   exp = exp2;
+    // }
 
-    ExpSetting expSetting;
-    if (_expModuleSelected == .one) {
-      expSetting = exp.module1;
-    } else if (_expSelected == .oneB) {
-      expSetting = exp.module2;
-    } else {
-      expSetting = exp.module3;
-    }
-    print('exp Settings ${expSetting}');
+    // ExpSetting expSetting;
+    // if (_expModuleSelected == .one) {
+    //   expSetting = exp.module1;
+    // } else if (_expSelected == .oneB) {
+    //   expSetting = exp.module2;
+    // } else {
+    //   expSetting = exp.module3;
+    // }
+    // print('exp Settings ${expSetting}');
 
     return Scaffold(
       appBar: AppBar(title: Text('EXP Settings')),
@@ -132,7 +132,8 @@ class _ExpSettingsScreenState extends ConsumerState<ExpSettingsScreen> {
             ),
             const SizedBox(height: 16),
             InputComboxWidget(
-              value: expSetting.module,
+              // value: expSetting.module,
+              value: ExpModule.dly,
               entries: ExpModule.values.asNameMap(),
               label: 'EXP Module ${_expModuleSelected.index + 1}',
               onChanged: (e) {},

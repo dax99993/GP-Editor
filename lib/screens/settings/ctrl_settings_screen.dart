@@ -20,7 +20,7 @@ class _CtrlSettingsScreenState extends State<CtrlSettingsScreen> {
     return Scaffold(
       appBar: AppBar(title: Text('CTRL Settings')),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -61,6 +61,8 @@ class CtrlEffects extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final ctrls = ref.watch(patchProvider.select((p) => p.ctrls));
     final ctrl = ctrls[id];
+
+    // print('CTRL effects ${ctrl.effects}');
 
     return Wrap(
       spacing: 4.0, // Gap between adjacent images (horizontal)

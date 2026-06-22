@@ -41,9 +41,6 @@ abstract class Patch with _$Patch {
     required Exp exp2,
     // required List<Exp> exps,
     // Knob
-    // required Knob knob1,
-    // required Knob knob2,
-    // required Knob knob3,
     required List<Knob> knobs,
     // CTRL
     required List<Ctrl> ctrls,

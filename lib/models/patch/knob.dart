@@ -1,3 +1,7 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'knob.freezed.dart';
+
 enum KnobModule {
   pre(0),
   wah(1),
@@ -17,15 +21,12 @@ enum KnobModule {
   const KnobModule(this.code);
 }
 
-class Knob {
-  final int id; // ID of knob in range 0-2
-  final KnobModule module; // Module linked to the knob
-  final int
-  effectParamId; // Parameter ID of linked effect ; when module is not an effect (patchVol, bpm, off) it is ignored
-
-  Knob({
-    required this.id,
-    required this.module,
-    required this.effectParamId,
-  }); //
+@freezed
+abstract class Knob with _$Knob {
+  const factory Knob({
+    required int id, // ID of knob in range 0-2
+    required KnobModule module, // Module linked to the knob
+    required int
+    moduleParamId, // Parameter ID of linked effect ; when module is not an effect (patchVol, bpm, off) it is ignored
+  }) = _Knob;
 }
