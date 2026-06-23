@@ -41,7 +41,7 @@ final class PatchNotifierProvider
   }
 }
 
-String _$patchNotifierHash() => r'27ca568feae10531129c5388d0f1dcf270b829c2';
+String _$patchNotifierHash() => r'ffbfc13b102c250d32da639b888c816b9ee42ed5';
 
 abstract class _$PatchNotifier extends $Notifier<Patch> {
   Patch build();

@@ -52,6 +52,9 @@ class ThemeColors {
   Color get segmentedButtonForegroundSelected => onPrimary;
   Color get segmentedButtonForegroundHovered => onPrimary;
   Color get segmentedButtonForegroundUnselected => primary;
+
+  Color get fxInputColor => Color.fromARGB(255, 83, 182, 249);
+  Color get fxOutputColor => Color.fromARGB(255, 163, 78, 227);
 }
 
 final themeColors = ThemeColors();

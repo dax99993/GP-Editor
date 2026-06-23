@@ -8,6 +8,7 @@ import 'package:gp_editor/widgets/effect/effect_chain_widget.dart';
 import 'package:gp_editor/widgets/effect/effect_parameters.dart';
 import 'package:gp_editor/widgets/effect/effect_selector_widget.dart';
 import 'package:gp_editor/widgets/effect/effect_state_switch_widget.dart';
+import 'package:gp_editor/widgets/patch/fxloop_position_widget.dart';
 
 enum PatchScreen { edit, settings }
 
@@ -105,7 +106,19 @@ class _PatchEditScreenState extends ConsumerState<PatchEditScreen> {
                     _buildToggleButtons(),
                     const SizedBox(height: 16),
                     if (_selectedOption == .edit) ...[
-                      effectChainWidget,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          effectChainWidget,
+                          RotatedBox(
+                            quarterTurns: 1, // 90 degrees clockwise
+                            child: SizedBox(
+                              width: 250 * 0.75,
+                              child: FxloopPositionWidget(showLabels: false),
+                            ),
+                          ),
+                        ],
+                      ),
                       const SizedBox(height: 16),
                       _buildEffectBar(),
                       effectParametersWidget,
@@ -122,10 +135,16 @@ class _PatchEditScreenState extends ConsumerState<PatchEditScreen> {
                   ? Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.max,
                       children: [
                         Column(
                           children: [
                             _buildToggleButtons(),
+                            const SizedBox(height: 16),
+                            Container(
+                              width: 250,
+                              child: FxloopPositionWidget(showLabels: false),
+                            ),
                             const SizedBox(height: 16),
                             effectChainWidget,
                           ],

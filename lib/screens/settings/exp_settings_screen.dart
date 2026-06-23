@@ -116,7 +116,7 @@ class ExpSettings extends ConsumerWidget {
 
     return Column(
       children: [
-        Text('${exp.id} ${exp.paramId}'),
+        // Text('${exp.id} ${exp.paramId}'),
         InputComboxWidget(
           key: ValueKey('EXP${exp.id}-Param${exp.paramId}'),
           value: exp.module,

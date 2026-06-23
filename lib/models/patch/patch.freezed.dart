@@ -312,7 +312,7 @@ $Res call({
 });
 
 
-$PatchSettingsCopyWith<$Res> get settings;
+$PatchSettingsCopyWith<$Res> get settings;$FXLoopCopyWith<$Res> get fxLoop;
 
 }
 /// @nodoc
@@ -349,6 +349,15 @@ $PatchSettingsCopyWith<$Res> get settings {
   
   return $PatchSettingsCopyWith<$Res>(_self.settings, (value) {
     return _then(_self.copyWith(settings: value));
+  });
+}/// Create a copy of Patch
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$FXLoopCopyWith<$Res> get fxLoop {
+  
+  return $FXLoopCopyWith<$Res>(_self.fxLoop, (value) {
+    return _then(_self.copyWith(fxLoop: value));
   });
 }
 }
@@ -567,7 +576,7 @@ $Res call({
 });
 
 
-@override $PatchSettingsCopyWith<$Res> get settings;
+@override $PatchSettingsCopyWith<$Res> get settings;@override $FXLoopCopyWith<$Res> get fxLoop;
 
 }
 /// @nodoc
@@ -605,6 +614,15 @@ $PatchSettingsCopyWith<$Res> get settings {
   
   return $PatchSettingsCopyWith<$Res>(_self.settings, (value) {
     return _then(_self.copyWith(settings: value));
+  });
+}/// Create a copy of Patch
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$FXLoopCopyWith<$Res> get fxLoop {
+  
+  return $FXLoopCopyWith<$Res>(_self.fxLoop, (value) {
+    return _then(_self.copyWith(fxLoop: value));
   });
 }
 }

@@ -1,3 +1,7 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'fxloop.freezed.dart';
+
 enum FXLoopMode {
   parallel(0),
   series(1);
@@ -6,18 +10,13 @@ enum FXLoopMode {
   const FXLoopMode(this.code);
 }
 
-class FXLoop {
-  final double sendLevel; //in range 0-100
-  final double returnLevel; //in range 0-100
-  final int sendPosition; // in-range 0-10
-  final int returnPosition; // in range 0-10 & <= sendPosition
-  final FXLoopMode mode;
-
-  FXLoop({
-    required this.sendLevel,
-    required this.returnLevel,
-    required this.sendPosition,
-    required this.returnPosition,
-    required this.mode,
-  });
+@freezed
+abstract class FXLoop with _$FXLoop {
+  const factory FXLoop({
+    required double sendLevel, //in range 0-100
+    required double returnLevel, //in range 0-100
+    required int sendPosition, // in-range 0-10
+    required int returnPosition, // in range 0-10 & <= sendPosition
+    required FXLoopMode mode,
+  }) = _FXLoop;
 }

@@ -13,35 +13,46 @@ class GeneralSettingsScreen extends ConsumerWidget {
     final pan = settings.pan;
     final bpm = settings.bpm;
 
+    print('Settings $settings');
+
     return Scaffold(
       appBar: AppBar(title: Text('General Settings')),
-      body: Column(
-        children: [
-          InputSliderWidget(
-            value: volume.toDouble(),
-            min: 0,
-            max: 100,
-            step: 1,
-            label: 'Volume',
-            onChanged: (val) {},
-          ),
-          InputSliderWidget(
-            value: pan.toDouble(),
-            min: -100,
-            max: 100,
-            step: 1,
-            label: 'Pan',
-            onChanged: (val) {},
-          ),
-          InputSliderWidget(
-            value: bpm.toDouble(),
-            min: 40,
-            max: 250,
-            step: 1,
-            label: 'BPM',
-            onChanged: (val) {},
-          ),
-        ],
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16),
+        child: Column(
+          children: [
+            InputSliderWidget(
+              value: volume.toDouble(),
+              min: 0,
+              max: 100,
+              step: 1,
+              label: 'Volume',
+              onChanged: (val) {
+                ref.read(patchProvider.notifier).setVolume(val.toInt());
+              },
+            ),
+            InputSliderWidget(
+              value: pan.toDouble(),
+              min: -100,
+              max: 100,
+              step: 1,
+              label: 'Pan',
+              onChanged: (val) {
+                ref.read(patchProvider.notifier).setPan(val.toInt());
+              },
+            ),
+            InputSliderWidget(
+              value: bpm.toDouble(),
+              min: 40,
+              max: 250,
+              step: 1,
+              label: 'BPM',
+              onChanged: (val) {
+                ref.read(patchProvider.notifier).setBpm(val.toInt());
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

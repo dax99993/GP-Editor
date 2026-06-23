@@ -1,9 +1,9 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gp_editor/data/test_patch.dart';
 import 'package:gp_editor/models/effect/effect.dart';
 import 'package:gp_editor/models/parameters/parameter.dart';
 import 'package:gp_editor/models/patch/exp.dart';
+import 'package:gp_editor/models/patch/fxloop.dart';
 import 'package:gp_editor/models/patch/knob.dart';
 import 'package:gp_editor/models/patch/patch.dart';
 import 'package:gp_editor/providers/app_provider.dart';
@@ -38,8 +38,42 @@ class PatchNotifier extends _$PatchNotifier {
   // Effect
 
   // General Settings
+  void setVolume(int volume) {
+    state = state.copyWith(settings: state.settings.copyWith(volume: volume));
+  }
+
+  void setPan(int pan) {
+    state = state.copyWith(settings: state.settings.copyWith(pan: pan));
+  }
+
+  void setBpm(int bpm) {
+    state = state.copyWith(settings: state.settings.copyWith(bpm: bpm));
+  }
 
   // FxLoop
+  // TODO: verify this state spliting is adecuate for midi state change messages
+  void setFxLoopPosition(int sendPosition, int returnPosition) {
+    final fxloop = state.fxLoop.copyWith(
+      sendPosition: sendPosition,
+      returnPosition: returnPosition,
+    );
+    state = state.copyWith(fxLoop: fxloop);
+  }
+
+  void setFxLoopSendLevel(double level) {
+    final fxloop = state.fxLoop.copyWith(sendLevel: level);
+    state = state.copyWith(fxLoop: fxloop);
+  }
+
+  void setFxLoopReturnLevel(double level) {
+    final fxloop = state.fxLoop.copyWith(returnLevel: level);
+    state = state.copyWith(fxLoop: fxloop);
+  }
+
+  void setFxLoopMode(FXLoopMode mode) {
+    final fxloop = state.fxLoop.copyWith(mode: mode);
+    state = state.copyWith(fxLoop: fxloop);
+  }
 
   // Knob
   void setKnob({
