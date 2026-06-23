@@ -13,7 +13,7 @@ class GeneralSettingsScreen extends ConsumerWidget {
     final pan = settings.pan;
     final bpm = settings.bpm;
 
-    print('Settings $settings');
+    // print('Settings $settings');
 
     return Scaffold(
       appBar: AppBar(title: Text('General Settings')),

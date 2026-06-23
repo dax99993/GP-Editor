@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'patch_provider.dart';
+part of 'patches_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -9,51 +9,51 @@ part of 'patch_provider.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(PatchNotifier)
-final patchProvider = PatchNotifierProvider._();
+@ProviderFor(PatchesNotifier)
+final patchesProvider = PatchesNotifierProvider._();
 
-final class PatchNotifierProvider
-    extends $NotifierProvider<PatchNotifier, Patch> {
-  PatchNotifierProvider._()
+final class PatchesNotifierProvider
+    extends $NotifierProvider<PatchesNotifier, List<Patch>> {
+  PatchesNotifierProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'patchProvider',
+        name: r'patchesProvider',
         isAutoDispose: true,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$patchNotifierHash();
+  String debugGetCreateSourceHash() => _$patchesNotifierHash();
 
   @$internal
   @override
-  PatchNotifier create() => PatchNotifier();
+  PatchesNotifier create() => PatchesNotifier();
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(Patch value) {
+  Override overrideWithValue(List<Patch> value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<Patch>(value),
+      providerOverride: $SyncValueProvider<List<Patch>>(value),
     );
   }
 }
 
-String _$patchNotifierHash() => r'f90d0c6275663a73ac601d1802deab0d915bc50d';
+String _$patchesNotifierHash() => r'821e9a06d533c5a84c19c1310961155b4fbefa69';
 
-abstract class _$PatchNotifier extends $Notifier<Patch> {
-  Patch build();
+abstract class _$PatchesNotifier extends $Notifier<List<Patch>> {
+  List<Patch> build();
   @$mustCallSuper
   @override
   WhenComplete runBuild() {
-    final ref = this.ref as $Ref<Patch, Patch>;
+    final ref = this.ref as $Ref<List<Patch>, List<Patch>>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<Patch, Patch>,
-              Patch,
+              AnyNotifier<List<Patch>, List<Patch>>,
+              List<Patch>,
               Object?,
               Object?
             >;

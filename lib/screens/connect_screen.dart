@@ -34,7 +34,7 @@ class _ConnectScreenState extends State<ConnectScreen> {
             Container(
               width: 200,
               height: 200,
-              color: Colors.red,
+              // color: Colors.red,
               child: Stack(
                 children: [
                   // AnimatedSwitcher(
@@ -69,12 +69,22 @@ class _ConnectScreenState extends State<ConnectScreen> {
               horizontalPadding: 16,
               child: Column(
                 children: [
-                  DropdownMenu(
-                    dropdownMenuEntries: [
-                      DropdownMenuEntry(value: 1, label: 'Device 1'),
-                    ],
+                  ListTile(
+                    leading: Icon(Icons.bluetooth),
+                    title: Text('Bluetooth'),
+                    subtitle: Text('Connect via Bluetooth'),
+                    onTap: () {
+                      // Handle Bluetooth connection
+                    },
                   ),
-                  ElevatedButton(onPressed: () {}, child: Text('Connect')),
+                  ListTile(
+                    leading: Icon(Icons.usb),
+                    title: Text('USB'),
+                    subtitle: Text('Connect via USB cable'),
+                    onTap: () {
+                      // Handle USB connection
+                    },
+                  ),
                 ],
               ),
             ),

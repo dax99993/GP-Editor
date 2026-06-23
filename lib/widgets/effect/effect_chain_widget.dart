@@ -80,10 +80,7 @@ class EffectChainWidget extends ConsumerWidget {
       patchProvider.select((p) => p.effectsChainOrder),
     );
 
-    final effectsState = ref
-        .read(patchProvider.select((p) => p.effects))
-        .map((e) => e.state)
-        .toList();
+    final effects = ref.watch(patchProvider.select((p) => p.effects));
 
     final inputChainPosition = ref.watch(
       patchProvider.select((p) => p.fxLoop.sendPosition),
@@ -92,6 +89,11 @@ class EffectChainWidget extends ConsumerWidget {
     final outputChainPosition = ref.watch(
       patchProvider.select((p) => p.fxLoop.returnPosition),
     );
+
+    final effectsState = effectsChain.map((effectType) {
+      final effect = effects.firstWhere((e) => e.type == effectType);
+      return effect.state;
+    }).toList();
 
     final generatedChildren = List.generate(
       effectsChain.length,

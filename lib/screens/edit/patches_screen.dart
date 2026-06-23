@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gp_editor/providers/patches_provider.dart';
 import 'package:gp_editor/widgets/patch/patch_widget.dart';
 
-class PatchesScreen extends StatefulWidget {
+class PatchesScreen extends ConsumerStatefulWidget {
   const PatchesScreen({super.key});
 
   @override
-  State<PatchesScreen> createState() => _PatchesScreenState();
+  ConsumerState<PatchesScreen> createState() => _PatchesScreenState();
 }
 
-class _PatchesScreenState extends State<PatchesScreen> {
+class _PatchesScreenState extends ConsumerState<PatchesScreen> {
   @override
   Widget build(BuildContext context) {
+    final patches = ref.watch(patchesProvider);
+
     return Scaffold(
       body: CustomScrollView(
         slivers: [
@@ -33,15 +37,17 @@ class _PatchesScreenState extends State<PatchesScreen> {
             ),
           ),
           SliverPadding(
-            padding: const EdgeInsets.only(bottom: 50.0),
+            padding: const EdgeInsetsGeometry.fromLTRB(16, 0, 16, 25),
             sliver: SliverList.builder(
-              itemCount: 20,
-              // itemCount: _filtered_effects.length,
+              itemCount: patches.length,
+              // itemCount: _filtered_patches.length,
               itemBuilder: (context, index) {
                 // final effect = _filtered_effects[index];
+                final patch = patches[index];
                 return PatchWidget(
-                  name: 'Patch $index',
-                  shortDescription: 'description $index',
+                  name: patch.name,
+                  // shortDescription: patch.description,
+                  shortDescription: 'Short description of the patch',
                   onTap: () {
                     print('Change Effect to ');
                   },

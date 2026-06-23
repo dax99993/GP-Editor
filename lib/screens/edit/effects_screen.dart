@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gp_editor/data/change_effect.dart';
+import 'package:gp_editor/data/default_effects.dart';
 import 'package:gp_editor/models/effect/effect.dart';
 import 'package:gp_editor/models/effect/effect_info.dart';
 import 'package:gp_editor/providers/app_provider.dart';
@@ -45,13 +46,14 @@ class _EffectsScreenState extends ConsumerState<EffectsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final selectedEffect = ref.read(
+    final EffectType selectedEffect = ref.read(
       appProvider.select((app) => app.selectedEffect),
     );
-    final e = ref
-        .read(patchProvider)
-        .effects
+    final Effect eff = ref
+        .watch(patchProvider.select((p) => p.effects))
         .firstWhere((e) => e.type == selectedEffect);
+
+    print('Selected Effect (${selectedEffect.name}): ${eff.name}');
 
     return Scaffold(
       body: CustomScrollView(
@@ -79,17 +81,20 @@ class _EffectsScreenState extends ConsumerState<EffectsScreen> {
             sliver: SliverList.builder(
               itemCount: _filteredEffects.length,
               itemBuilder: (context, index) {
-                final effect = _filteredEffects[index];
+                final effectInfo = _filteredEffects[index];
+                final effect = defaultEffects[selectedEffect]!.firstWhere(
+                  (e) => e.id == effectInfo.id,
+                );
                 return EffectWidget(
-                  name: effect.name,
-                  // isSelected: index == 1,
-                  isSelected: effect.id == e.id,
-                  shortDescription: effect.description,
+                  name: effectInfo.name,
+                  isSelected: effectInfo.id == eff.id,
+                  shortDescription: effectInfo.description,
                   onTap: () {
-                    print('Change Effect to ${effect.name}');
+                    ref.read(patchProvider.notifier).setEffect(effect);
+                    // TODO: Should I pop this screen after selecting an effect?
                   },
                   onTapInfo: () {
-                    print('Show Effect Info of ${effect.name}');
+                    print('Show Effect Info of ${effectInfo.name}');
                   },
                 );
               },

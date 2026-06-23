@@ -24,10 +24,6 @@ class PatchNotifier extends _$PatchNotifier {
     return state.effects.firstWhere((e) => e.type == selectedEffectType);
   }
 
-  // Parameter firstParameter() {
-  //   state.effects
-  // }
-
   // Effect Chain
   void reorderEffectChain(List<EffectType> order) {
     print('Changing effects chain order $order');
@@ -36,6 +32,39 @@ class PatchNotifier extends _$PatchNotifier {
   }
 
   // Effect
+  void setEffect(Effect effect) {
+    final effects = [...state.effects];
+    final index = effects.indexWhere((e) => e.type == effect.type);
+    effects[index] = effect;
+    state = state.copyWith(effects: effects);
+  }
+
+  void setEffectState(EffectType effectType, bool stateValue) {
+    final effects = [...state.effects];
+    final index = effects.indexWhere((e) => e.type == effectType);
+    final effect = effects[index];
+    effects[index] = effect.copyWith(state: stateValue);
+    state = state.copyWith(effects: effects);
+  }
+
+  // void setEffectParameter({
+  //   required EffectType effectType,
+  //   required int parameterId,
+  //   required double value,
+  // }) {
+  //   final effects = [...state.effects];
+  //   final effectIndex = effects.indexWhere((e) => e.type == effectType);
+  //   final effect = effects[effectIndex];
+
+  //   final parameters = [...effect.parameters];
+  //   final paramIndex = parameters.indexWhere((p) => p.id == parameterId);
+  //   final param = parameters[paramIndex];
+
+  //   parameters[paramIndex] = param.copyWith(value: value);
+  //   effects[effectIndex] = effect.copyWith(parameters: parameters);
+
+  //   state = state.copyWith(effects: effects);
+  // }
 
   // General Settings
   void setVolume(int volume) {
