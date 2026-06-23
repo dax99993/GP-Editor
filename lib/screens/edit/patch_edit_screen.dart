@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gp_editor/providers/patch_provider.dart';
-import 'package:gp_editor/screens/edit/patches_screen.dart';
-import 'package:gp_editor/screens/home_screen.dart';
 import 'package:gp_editor/screens/settings/patch_settings_screen.dart';
 import 'package:gp_editor/widgets/effect/effect_chain_widget.dart';
 import 'package:gp_editor/widgets/effect/effect_parameters.dart';
 import 'package:gp_editor/widgets/effect/effect_selector_widget.dart';
 import 'package:gp_editor/widgets/effect/effect_state_switch_widget.dart';
 import 'package:gp_editor/widgets/patch/fxloop_position_widget.dart';
+import 'package:gp_editor/widgets/patch/patch_edit_appbar_widget.dart';
 
 enum PatchScreen { edit, settings }
 
@@ -69,32 +68,7 @@ class _PatchEditScreenState extends ConsumerState<PatchEditScreen> {
     final patchName = ref.watch(patchProvider.select((p) => p.name));
 
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(builder: (context) => HomeScreen()),
-              (route) => false,
-            );
-          },
-          icon: Icon(Icons.home),
-        ),
-        // title: RoundedCard(child: Text('Patch Name')),
-        title: ElevatedButton(
-          onPressed: () {
-            Navigator.of(
-              context,
-            ).push(MaterialPageRoute(builder: (context) => PatchesScreen()));
-          },
-          child: Text(patchName),
-        ),
-        actions: [
-          IconButton(onPressed: () {}, icon: Icon(Icons.chevron_left)),
-          IconButton(onPressed: () {}, icon: Icon(Icons.chevron_right)),
-          IconButton(onPressed: () {}, icon: Icon(Icons.save)),
-          IconButton(onPressed: () {}, icon: Icon(Icons.more_vert)),
-        ],
-      ),
+      appBar: PatchEditAppbarWidget(),
       body: LayoutBuilder(
         builder: (context, constraints) {
           if (constraints.maxWidth <= 500) {
@@ -137,17 +111,20 @@ class _PatchEditScreenState extends ConsumerState<PatchEditScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        Column(
-                          children: [
-                            _buildToggleButtons(),
-                            const SizedBox(height: 16),
-                            Container(
-                              width: 250,
-                              child: FxloopPositionWidget(showLabels: false),
-                            ),
-                            const SizedBox(height: 16),
-                            effectChainWidget,
-                          ],
+                        SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              _buildToggleButtons(),
+                              const SizedBox(height: 16),
+                              effectChainWidget,
+                              const SizedBox(height: 16),
+                              Container(
+                                width: 250,
+                                height: 15,
+                                child: FxloopPositionWidget(showLabels: false),
+                              ),
+                            ],
+                          ),
                         ),
                         const SizedBox(width: 16),
                         Expanded(

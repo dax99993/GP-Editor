@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gp_editor/widgets/rounded_card_widget.dart';
 
 class PatchSettingsSelectorWidget extends StatelessWidget {
-  PatchSettingsSelectorWidget({
+  const PatchSettingsSelectorWidget({
     super.key,
     required this.title,
     required this.infoWidgets,
@@ -10,10 +10,10 @@ class PatchSettingsSelectorWidget extends StatelessWidget {
     required this.onTap,
   });
 
-  String title;
-  List<Widget> infoWidgets;
-  String imagePath;
-  void Function() onTap;
+  final String title;
+  final List<Widget> infoWidgets;
+  final String imagePath;
+  final void Function() onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -22,10 +22,9 @@ class PatchSettingsSelectorWidget extends StatelessWidget {
       child: RoundedCardWidget(
         child: Row(
           children: [
-            Container(
+            SizedBox(
               width: 32,
               height: 32,
-              // color: Colors.red,
               child: Image.asset(imagePath, fit: BoxFit.fill),
             ),
             const SizedBox(width: 12),
