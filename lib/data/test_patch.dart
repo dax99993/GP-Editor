@@ -1,10 +1,10 @@
-import 'package:gp_editor/data/default_effects.dart';
-import 'package:gp_editor/models/effect/effect.dart';
-import 'package:gp_editor/models/patch/ctrl.dart';
-import 'package:gp_editor/models/patch/exp.dart';
-import 'package:gp_editor/models/patch/fxloop.dart';
-import 'package:gp_editor/models/patch/knob.dart';
-import 'package:gp_editor/models/patch/patch.dart';
+import 'package:gp_editor/features/effects/data/default_effects.dart';
+import 'package:gp_editor/features/effects/data/models/effect.dart';
+import 'package:gp_editor/features/patch/data/models/ctrl.dart';
+import 'package:gp_editor/features/patch/data/models/exp.dart';
+import 'package:gp_editor/features/patch/data/models/fxloop.dart';
+import 'package:gp_editor/features/patch/data/models/knob.dart';
+import 'package:gp_editor/features/patch/data/models/patch.dart';
 
 Patch testPatch = Patch(
   name: "It's GP-200",

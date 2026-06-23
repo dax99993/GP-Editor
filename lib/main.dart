@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gp_editor/screens/home_screen.dart';
-import 'package:gp_editor/theme.dart';
+import 'package:gp_editor/features/home/home_screen.dart';
+import 'package:gp_editor/config/theme.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
